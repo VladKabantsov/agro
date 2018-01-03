@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <table class="table table-bordered" id="users-table">
+    <table class="table table-bordered table-striped" id="users-table">
         <thead>
             <tr>
                 <th>Id</th>
