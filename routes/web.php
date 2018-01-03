@@ -49,9 +49,12 @@ Route::post('/order', function(Request $request){
 
 Route::get('/price', function(){
     
-    $sellings = \App\Selling::all();
+    if (Gate::allows('go')) {
+
+        $sellings = \App\Selling::all();
     
-    return view('selling', ['sellings' => $sellings]);
+        return view('selling', ['sellings' => $sellings]);
+    }
 });
 
 Route::post('/price', function(Request $request){
@@ -160,3 +163,6 @@ Route::post('/warehouse', function(Request $request){
 });
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
