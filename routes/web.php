@@ -47,7 +47,7 @@ Route::post('/order', function(Request $request){
     $order->save();
     //$order = tap(new App\Order(data))->save();
     
-    return redirect('/');
+    return redirect('/order');
 });
 
 Route::get('/price', function(){
