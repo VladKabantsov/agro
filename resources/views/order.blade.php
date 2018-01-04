@@ -20,7 +20,7 @@
 
         <div class="container">
         <div class="row">  
-        <h1>Добавление товара</h1>    
+        <h2>Добавление товара</h2>    
             <form action="/order" method="POST">
                 
               {!! csrf_field() !!}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Янв 03 2018 г., 13:56
+-- Время создания: Янв 04 2018 г., 13:13
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.1.7
 
@@ -25,14 +25,50 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `cat_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`id`, `cat_name`) VALUES
+(1, 'Родентициди'),
+(2, 'Інсектициди');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `goods`
+--
+
+CREATE TABLE `goods` (
+  `id` int(11) NOT NULL,
+  `barcode` int(10) UNSIGNED NOT NULL,
+  `categories_id` int(10) UNSIGNED NOT NULL,
+  `manfac_id` int(10) UNSIGNED NOT NULL,
+  `measure_id` int(10) UNSIGNED NOT NULL,
+  `g_name` varchar(60) NOT NULL,
+  `rec_price` int(10) UNSIGNED DEFAULT NULL,
+  `description` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `logs`
 --
 
 CREATE TABLE `logs` (
   `id` int(11) NOT NULL,
-  `goods_id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(10) UNSIGNED NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
-  `date` datetime NOT NULL,
+  `log_date` datetime NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `price1` int(10) UNSIGNED NOT NULL,
   `price2` int(10) UNSIGNED NOT NULL
@@ -42,7 +78,6 @@ CREATE TABLE `logs` (
 -- Дамп данных таблицы `logs`
 --
 
-INSERT INTO `logs` (`id`, `goods_id`, `quantity`, `date`, `user_id`, `price1`, `price2`) VALUES
 (1, 1, 15, '2018-01-02 08:32:52', 1, 470, 900),
 (2, 2, 5, '2018-01-02 08:34:58', 1, 55, 300);
 
@@ -70,21 +105,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `nerds`
---
-
-CREATE TABLE `nerds` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nerd_level` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
+INSERT INTO `logs` (`id`, `order_id`, `quantity`, `log_date`, `user_id`, `price1`, `price2`) VALUES
 -- Структура таблицы `orders`
 --
 
@@ -189,21 +210,34 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_a
 --
 
 --
+-- Структура таблицы `manufacturers`
+--
+
+CREATE TABLE `manufacturers` (
+  `id` int(11) NOT NULL,
+  `manfac_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `measures`
+--
+
+CREATE TABLE `measures` (
+  `id` int(11) NOT NULL,
+  `meas_name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Индексы таблицы `logs`
 --
 ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `nerds`
---
-ALTER TABLE `nerds`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -236,6 +270,18 @@ ALTER TABLE `users`
 --
 
 --
+-- Индексы таблицы `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `goods`
+--
+ALTER TABLE `goods`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для таблицы `logs`
 --
 ALTER TABLE `logs`
@@ -246,11 +292,21 @@ ALTER TABLE `logs`
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT для таблицы `nerds`
+-- Индексы таблицы `manufacturers`
 --
-ALTER TABLE `nerds`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `manufacturers`
+  ADD PRIMARY KEY (`id`);
+
 --
+-- Индексы таблицы `measures`
+--
+ALTER TABLE `measures`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `migrations`
+--
+ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
