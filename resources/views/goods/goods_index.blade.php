@@ -2,15 +2,22 @@
 
 @section('main')
 <div class="row">  
-    <h2>Добавление заказа</h2>    
-        <form action="/order" method="POST">
+    <h2>Добавление товара</h2>    
+        <form action="/goods" method="POST">
 
           {!! csrf_field() !!}
-          <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-            <label for="goods_id">goods_id</label>
-            <input type="text" class="form-control" id="goods_id" name="goods_id" placeholder="goods_id" value="{{ old('goods_id') }}">
+          <div class="form-group{{ $errors->has('barcode') ? ' has-error' : '' }}">
+            <label for="barcode">Штрих-код</label>
+            <input type="text" class="form-control" id="barcode" name="barcode" placeholder="barcode" value="{{ old('barcode') }}">
             @if($errors->has('goods_id'))
-                <span class="help-block">{{ $errors->first('goods_id') }}</span>
+                <span class="help-block">{{ $errors->first('barcode') }}</span>
+            @endif
+          </div>
+          <div class="form-group{{ $errors->has('categories_id') ? ' has-error' : '' }}">
+            <label for="categories_id">категория</label>
+            <input type="text" class="form-control" id="categories_id" name="categories_id" placeholder="categories_id" value="{{ old('categories_id') }}">
+            @if($errors->has('goods_id'))
+                <span class="help-block">{{ $errors->first('categories_id') }}</span>
             @endif
           </div>
           <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
@@ -42,16 +49,17 @@
            <th width="15%">date</th>  
            <th width="10%">user_id</th>  
       </tr>
-      @foreach ($orders as $order)
+      @foreach ($goods as $one)
       <tr>
-           <td>{{ $order->id }}</td>
-           <td>{{ $order->goods_id }}</td>
-           <td>{{ $order->quantity }}</td>
-           <td>{{ $order->rem_goods }}</td>
-           <td>{{ $order->price }}</td>
-           <td>{{ $order->date }}</td>
-           <td>{{ $order->user_id }}</td>
+           <td>{{ $one->id }}</td>
+           <td>{{ $one->goods_id }}</td>
+           <td>{{ $one->quantity }}</td>
+           <td>{{ $one->rem_goods }}</td>
+           <td>{{ $one->price }}</td>
+           <td>{{ $one->date }}</td>
+           <td>{{ $one->user_id }}</td>
       </tr>     
       @endforeach
     </table>
 @endsection
+
