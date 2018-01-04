@@ -5,7 +5,10 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
 
-Route::resource('nerds', 'NerdController');
+Route::get('/', function(){
+    
+    return view('layouts.agro_layout');
+});
 
 //Route::get('/', function(){
 //    
@@ -26,7 +29,7 @@ Route::get('/order', function(){
     
     $orders = \App\Order::all();
     
-    return view('order', ['orders' => $orders]);
+    return view('orders.order_index', ['orders' => $orders]);
 });
 
 Route::post('/order', function(Request $request){
