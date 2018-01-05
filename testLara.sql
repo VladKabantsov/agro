@@ -78,31 +78,8 @@ CREATE TABLE `logs` (
 -- Дамп данных таблицы `logs`
 --
 
-INSERT INTO `logs` (`id`, `order_id`, `quantity`, `log_date`, `user_id`, `price1`, `price2`) VALUES
 (1, 1, 15, '2018-01-02 08:32:52', 1, 470, 900),
 (2, 2, 5, '2018-01-02 08:34:58', 1, 55, 300);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `manufacturers`
---
-
-CREATE TABLE `manufacturers` (
-  `id` int(11) NOT NULL,
-  `manfac_name` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `measures`
---
-
-CREATE TABLE `measures` (
-  `id` int(11) NOT NULL,
-  `meas_name` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -128,6 +105,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+INSERT INTO `logs` (`id`, `order_id`, `quantity`, `log_date`, `user_id`, `price1`, `price2`) VALUES
 -- Структура таблицы `orders`
 --
 
@@ -232,16 +210,26 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_a
 --
 
 --
--- Индексы таблицы `categories`
+-- Структура таблицы `manufacturers`
 --
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
+
+CREATE TABLE `manufacturers` (
+  `id` int(11) NOT NULL,
+  `manfac_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- Индексы таблицы `goods`
+-- Структура таблицы `measures`
 --
-ALTER TABLE `goods`
-  ADD PRIMARY KEY (`id`);
+
+CREATE TABLE `measures` (
+  `id` int(11) NOT NULL,
+  `meas_name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Индексы таблицы `logs`
@@ -250,21 +238,6 @@ ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `manufacturers`
---
-ALTER TABLE `manufacturers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `measures`
---
-ALTER TABLE `measures`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `migrations`
---
-ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -297,36 +270,43 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT для таблицы `categories`
+-- Индексы таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  ADD PRIMARY KEY (`id`);
+
 --
--- AUTO_INCREMENT для таблицы `goods`
+-- Индексы таблицы `goods`
 --
 ALTER TABLE `goods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  ADD PRIMARY KEY (`id`);
+
 --
 -- AUTO_INCREMENT для таблицы `logs`
 --
 ALTER TABLE `logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT для таблицы `manufacturers`
---
-ALTER TABLE `manufacturers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `measures`
---
-ALTER TABLE `measures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
+-- Индексы таблицы `manufacturers`
+--
+ALTER TABLE `manufacturers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `measures`
+--
+ALTER TABLE `measures`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `migrations`
+--
+ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`

@@ -5,9 +5,26 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Mail;
+
 Route::get('/', function(){
     
     return view('layouts.agro_layout');
+});
+
+Route::get('mail', function(){
+    
+    $to  = "<jekaxv@gmail.com>, " ; 
+
+    $subject = "Заголовок письма"; 
+
+    $message = ' <p>Текст письма</p> </br> <b>1-ая строчка </b> </br><i>2-ая строчка </i> </br>';
+
+    $headers  = "Content-type: text/html; charset=windows-1251 \r\n"; 
+    $headers .= "From: От кого письмо <from@example.com>\r\n"; 
+    $headers .= "Reply-To: reply-to@example.com\r\n"; 
+
+    mail($to, $subject, $message, $headers);
 });
 
 //Route::get('/', function(){
@@ -47,7 +64,7 @@ Route::post('/order', function(Request $request){
     $order->save();
     //$order = tap(new App\Order(data))->save();
     
-    return redirect('/order');
+    return redirect('/');
 });
 
 Route::get('/price', function(){
@@ -169,3 +186,6 @@ Route::post('/warehouse', function(Request $request){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/goods', 'GoodsController');
+

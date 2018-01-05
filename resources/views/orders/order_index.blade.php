@@ -2,7 +2,7 @@
 
 @section('main')
 <div class="row">  
-    <h2>Добавление товара</h2>    
+    <h2>Добавление заказа</h2>    
         <form action="/order" method="POST">
 
           {!! csrf_field() !!}
@@ -55,6 +55,3 @@
       @endforeach
     </table>
 @endsection
-
-
-
