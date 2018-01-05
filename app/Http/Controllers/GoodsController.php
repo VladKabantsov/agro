@@ -49,7 +49,25 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $data = $request->validate([
+            
+            'g_name' => 'required',
+            'barcode' => 'required',
+            'categories_id' => 'required',
+            'manfac_id' => 'required',
+            'manfac_id' => 'required',
+            'measure_id' => 'required',
+            'rec_price' => 'required',
+            'description' => 'required',
+        ]);
+        $data = $request->except('_token');
+                    
+        $goods = new \App\Goods();
+        $goods->fill($data);
+        $goods->save();
+        
+        return redirect('/goods')->flash('status', 'Task was successful!');;
+        
     }
 
     /**

@@ -30,7 +30,8 @@ class DatatablesController extends Controller
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
-                return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>'
+                       .'<a href="#del-'.$user->id.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>' ;
             })
             //->editColumn('id', 'ID: {{$id}}')
             ->removeColumn('password')

@@ -23,7 +23,7 @@
           
             <div class="form-group{{ $errors->has('сategories_id') ? ' has-error' : '' }}">
               <label>Категория</label>
-              <select class="selectpicker form-control" id="сategory" name="сategories_id" data-live-search="true">
+              <select class="selectpicker form-control" id="сategories_id" name="categories_id" data-live-search="true">
               <?php foreach ($сategories as $row): ?>
                   <option value="{{ $row->id }}">{{ $row->cat_name }}</option> 
               <?php endforeach; ?>      
@@ -80,22 +80,22 @@
     <table class="table table-bordered">  
       <tr>  
            <th width="10%">id</th>  
-           <th width="10%">goods_id</th>  
-           <th width="15%">quantity</th>  
-           <th width="15%">remaining</th>  
-           <th width="15%">price</th>  
-           <th width="15%">date</th>  
-           <th width="10%">user_id</th>  
+           <th width="15%">name</th>  
+           <th width="10%">barcode</th>  
+           <th width="10%">categorory</th>  
+           <th width="10%">manfac</th>  
+           <th width="10%">measure</th>  
+           <th width="10%">rec_price</th>  
       </tr>
       @foreach ($goods as $one)
       <tr>
            <td>{{ $one->id }}</td>
-           <td>{{ $one->goods_id }}</td>
-           <td>{{ $one->quantity }}</td>
-           <td>{{ $one->rem_goods }}</td>
-           <td>{{ $one->price }}</td>
-           <td>{{ $one->date }}</td>
-           <td>{{ $one->user_id }}</td>
+           <td>{{ $one->g_name }}</td>
+           <td>{{ $one->barcode }}</td>
+           <td>{{ $one->categories_id }}</td>
+           <td>{{ $one->manfac_id }}</td>
+           <td>{{ $one->measure_id }}</td>
+           <td>{{ $one->rec_price }}</td>
       </tr>     
       @endforeach
     </table>

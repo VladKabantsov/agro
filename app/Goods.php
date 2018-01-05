@@ -8,7 +8,7 @@ class Goods extends Model
 {
     protected $table = 'goods';
     
-    public $timestamp = false;
+    public $timestamps = false;
     
     protected $fillable = [
         'barcode', 'categories_id', 'manfac_id', 'measure_id', 'g_name', 

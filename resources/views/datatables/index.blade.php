@@ -32,6 +32,11 @@
                 ]
         });
     });
+    $('#users-table tbody').on( 'click', 'button', function () {
+        //var data = table.row( $(this).parents('tr') ).data();
+        var data = table.row(0).data();
+        alert( data );
+    } );
 </script>
 @endpush
 
