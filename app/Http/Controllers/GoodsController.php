@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Goods;
 use App\Category;
+use App\Manufacturer;
+use App\Measure;
 
 class GoodsController extends Controller
 {
@@ -18,10 +20,14 @@ class GoodsController extends Controller
     {
         $goods = Goods::all();
         $сategories = Category::all();
+        $manfacs = Manufacturer::all();
+        $measures = Measure::all();
         
         return view('goods.goods_index', [
             'goods'      => $goods,
-            'сategories' => $сategories
+            'сategories' => $сategories,
+            'manfacs'     => $manfacs,
+            'measures'   => $measures
         ]);
     }
 
@@ -43,7 +49,7 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
