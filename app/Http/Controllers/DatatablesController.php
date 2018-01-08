@@ -37,4 +37,9 @@ class DatatablesController extends Controller
             ->removeColumn('password')
             ->make(true);
     }
+    
+    public function data1() {
+        
+        
+    }
 }

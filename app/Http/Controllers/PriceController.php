@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Carbon\Carbon;
 
-use App\Nerd;
+use Illuminate\Support\Facades\Gate;
+use App\Selling;
 
-class NerdController extends Controller
+class PriceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,14 @@ class NerdController extends Controller
      */
     public function index()
     {
-        $nerds = Nerd::all();
-        
-        return view('nerds.index')->with('nerds', $nerds);
+        if (Gate::allows('go')) {
+
+            $sellings = Selling::all();
+
+            return view('price.price_index', ['sellings' => $sellings]);
+        } 
+        echo "testing access restriction, only 'test@test.com' can pass "
+           . "(password - 'qwerty1'";
     }
 
     /**
@@ -27,7 +34,7 @@ class NerdController extends Controller
      */
     public function create()
     {
-        return view('nerds.create');
+        //
     }
 
     /**
@@ -38,7 +45,19 @@ class NerdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'goods_id' => 'required',
+            'sprice'    => 'required',
+        ]);
+        $data['user_id'] = 1;
+//        $data['date'] = Carbon::now();
+
+        $selling = new Selling($data);
+        $selling->save();
+        //$order = tap(new App\Order(data))->save();
+
+        return redirect()->route('price.index')
+                         ->with('status', 'Добавлен успешно');
     }
 
     /**

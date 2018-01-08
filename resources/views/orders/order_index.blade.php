@@ -1,35 +1,41 @@
 @extends('layouts.agro_layout')
 
 @section('main')
-<div class="row">  
-    <h2>Добавление заказа</h2>    
-        <form action="/order" method="POST">
+<div class="row">
+    @if ( session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    
+    <h2>Наполнение магазина</h2>    
+    <form action="{{ route('order.store') }}" method="POST">
 
-          {!! csrf_field() !!}
-          <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-            <label for="goods_id">goods_id</label>
-            <input type="text" class="form-control" id="goods_id" name="goods_id" placeholder="goods_id" value="{{ old('goods_id') }}">
-            @if($errors->has('goods_id'))
-                <span class="help-block">{{ $errors->first('goods_id') }}</span>
-            @endif
-          </div>
-          <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
-            <label for="quantity">quantity</label>
-            <input type="text" class="form-control" id="quantity" name="quantity" placeholder="quantity" value="{{ old('quantity') }}">
-            @if($errors->has('quantity'))
-                <span class="help-block">{{ $errors->first('quantity') }}</span>
-            @endif
-          </div>
-          <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
-            <label for="price">price</label>
-            <input type="text" class="form-control" id="price" name="price" placeholder="price" value="{{ old('price') }}">
-            @if($errors->has('price'))
-                <span class="help-block">{{ $errors->first('price') }}</span>
-            @endif
-          </div>
-          <button type="submit" class="btn btn-primary">Добавить</button>
+      {!! csrf_field() !!}
+      <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+        <label for="goods_id">goods_id</label>
+        <input type="text" class="form-control" id="goods_id" name="goods_id" placeholder="goods_id" value="{{ old('goods_id') }}">
+        @if($errors->has('goods_id'))
+            <span class="help-block">{{ $errors->first('goods_id') }}</span>
+        @endif
+      </div>
+      <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
+        <label for="quantity">quantity</label>
+        <input type="text" class="form-control" id="quantity" name="quantity" placeholder="quantity" value="{{ old('quantity') }}">
+        @if($errors->has('quantity'))
+            <span class="help-block">{{ $errors->first('quantity') }}</span>
+        @endif
+      </div>
+      <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+        <label for="price">price</label>
+        <input type="text" class="form-control" id="price" name="price" placeholder="price" value="{{ old('price') }}">
+        @if($errors->has('price'))
+            <span class="help-block">{{ $errors->first('price') }}</span>
+        @endif
+      </div>
+      <button type="submit" class="btn btn-primary">Добавить</button>
 
-        </form>
+    </form>
 </div>    
     <br/><hr>
     <table class="table table-bordered">  
@@ -49,7 +55,7 @@
            <td>{{ $order->quantity }}</td>
            <td>{{ $order->rem_goods }}</td>
            <td>{{ $order->price }}</td>
-           <td>{{ $order->date }}</td>
+           <td>{{ $order->created_at }}</td>
            <td>{{ $order->user_id }}</td>
       </tr>     
       @endforeach

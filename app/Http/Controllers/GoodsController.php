@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+//use App\Http\Controllers\StoreGoods; 
 use App\Goods;
 use App\Category;
 use App\Manufacturer;
 use App\Measure;
+
+use Auth;
+
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\DataTables;
 
 class GoodsController extends Controller
 {
@@ -18,19 +24,45 @@ class GoodsController extends Controller
      */
     public function index()
     {
-        $goods = Goods::all();
-        $сategories = Category::all();
-        $manfacs = Manufacturer::all();
-        $measures = Measure::all();
+//        $goods = Goods::all();
+//        $сategories = Category::all();
+//        $manfacs = Manufacturer::all();
+//        $measures = Measure::all();
+//        
+//        return view('goods.goods_index', [
+//            'goods'      => $goods,
+//            'сategories' => $сategories,
+//            'manfacs'     => $manfacs,
+//            'measures'   => $measures
+//        ]);
+//        return view('goods.goods_index');
+        $sql = "select g.id, g.g_name, g.barcode, c.cat_name, mf.manfac_name, 
+                       m.meas_name, g.rec_price
+                from goods g 
+                    join measures m on g.measure_id = m.id
+                    join manufacturers mf on g.manfac_id = mf.id
+                    join categories c on g.manfac_id = c.id";
         
-        return view('goods.goods_index', [
-            'goods'      => $goods,
-            'сategories' => $сategories,
-            'manfacs'     => $manfacs,
-            'measures'   => $measures
-        ]);
+        $goods = DB::select($sql);
+        
+        return view('goods.goods_index', ['goods' => $goods]);
     }
-
+    
+    public function data()
+    {
+        // TODO: сделать вьюху
+        $sql = "select g.id, g.g_name, g.barcode, c.cat_name, mf.manfac_name, 
+                       m.meas_name, g.rec_price
+                from goods g 
+                    join measures m on g.measure_id = m.id
+                    join manufacturers mf on g.manfac_id = mf.id
+                    join categories c on g.manfac_id = c.id";
+        
+        $goods = DB::select($sql);
+        
+        
+        return Datatables::of($goods)->make(true);
+    }        
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +70,15 @@ class GoodsController extends Controller
      */
     public function create()
     {
-        //
+        $сategories = Category::all();
+        $manfacs = Manufacturer::all();
+        $measures = Measure::all();
+        
+        return view('goods.goods_create', [
+            'сategories' => $сategories,
+            'manfacs'     => $manfacs,
+            'measures'   => $measures
+        ]);
     }
 
     /**
@@ -49,16 +89,16 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
+        dd(Auth::user());
         $data = $request->validate([
             
-            'g_name' => 'required',
-            'barcode' => 'required',
+            'g_name'        => 'required',
+            'barcode'       => 'required',
             'categories_id' => 'required',
-            'manfac_id' => 'required',
-            'manfac_id' => 'required',
-            'measure_id' => 'required',
-            'rec_price' => 'required',
-            'description' => 'required',
+            'manfac_id'     => 'required',
+            'measure_id'    => 'required',
+            'rec_price'     => 'required',
+            'description'   => 'required',
         ]);
         $data = $request->except('_token');
                     
@@ -66,8 +106,8 @@ class GoodsController extends Controller
         $goods->fill($data);
         $goods->save();
         
-        return redirect('/goods')->flash('status', 'Task was successful!');;
-        
+        return redirect()->route('goods.create')
+                         ->with('status', 'Добавлен успешно');
     }
 
     /**
@@ -78,7 +118,7 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        //
+        return Goods::findOrFail($id)->get();
     }
 
     /**
@@ -112,6 +152,6 @@ class GoodsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Goods::findOrFail($id)->delete();
     }
 }

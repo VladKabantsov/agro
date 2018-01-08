@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    public $timestamps = false;
-    
     protected $fillable = [
-        'goods_id', 'quantity', 'date', 'user_id', 'price1', 'price2'
+        'order_id', 'quantity', 'user_id', 'shop_id', 'price1', 'price2'
     ];
+    
+    public function order() {
+        
+        return $this->belongsTo(\App\Order::class);
+    }
 }

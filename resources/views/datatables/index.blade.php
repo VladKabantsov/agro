@@ -19,7 +19,7 @@
 <script>
     $(function () {
         $('#users-table').DataTable({
-            serverSide: false,
+            serverSide: true,
             processing: true,
             ajax: '/array-data',
                "columns": [
@@ -32,11 +32,11 @@
                 ]
         });
     });
-    $('#users-table tbody').on( 'click', 'button', function () {
-        //var data = table.row( $(this).parents('tr') ).data();
-        var data = table.row(0).data();
-        alert( data );
-    } );
+//    $('#users-table tbody').on( 'click', 'button', function () {
+//        //var data = table.row( $(this).parents('tr') ).data();
+//        var data = table.row(0).data();
+//        alert( data );
+//    } );
 </script>
 @endpush
 
