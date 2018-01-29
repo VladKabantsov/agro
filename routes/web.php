@@ -14,10 +14,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/adduser', 'AddUserController@index');
+
+Route::post('/checkuser', 'SaveUserFieldsController@create');
+
 Route::get('/', function(){
     
     return view('layouts.agro_layout');
 });
+
+//Route::get('/adduser', function(){
+//
+//    return view('auth.register');
+//});
 
 /**
  *  Group of routes for 'Boss' role
@@ -52,3 +61,8 @@ Route::group([], function (){
         'uses' => 'WarehouseController@store'
     ]);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+

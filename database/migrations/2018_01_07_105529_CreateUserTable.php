@@ -23,7 +23,7 @@ class CreateUserTable extends Migration
             $table->integer('shop_id')->unsigned();
     //создание внешнего ключа для поля 'shop_id', который связан с полем id таблицы 'shops'
             $table->foreign('shop_id')->references('id')
-                  ->on('shops')->onUpdate('cascade');
+                  ->on('shops')->onUpdate('no action');
             
             $table->timestamps();
         });
