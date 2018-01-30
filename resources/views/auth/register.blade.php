@@ -62,6 +62,20 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <label class="radio-inline"><input type="radio" name="role" value="vendor" checked>Продавец</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <label class="radio-inline"><input type="radio" name="role" value="agent">Доверенный пользователь</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Register

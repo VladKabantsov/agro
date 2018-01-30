@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 
@@ -21,12 +22,16 @@ class SaveUserFieldsController extends Controller
         $user->username = Input::get('name');
         $user->email = Input::get('email');
         $user->password = Hash::make(Input::get('password'));
+        $user->role = Input::get('role');
+        
 //        $user->save();
         DB::table('users')->insert(
             [
                 'name'      => $user->username,
                 'email'     => $user->email,
-                'password'  => $user->password
+                'password'  => $user->password,
+                'role'      => "user",
+                'shop_id'   => "1",
             ]
         );
 
