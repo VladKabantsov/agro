@@ -18,10 +18,12 @@ Route::get('/adduser', 'AddUserController@index');
 
 Route::post('/checkuser', 'SaveUserFieldsController@create');
 
-Route::get('/', function(){
-    
-    return view('layouts.agro_layout');
-});
+Route::get('/', 'CheckUserController@index');
+
+//Route::get('/', function(){
+//
+//    return view('layouts.agro_layout');
+//});
 
 //Route::get('/adduser', function(){
 //
@@ -44,7 +46,7 @@ Route::group([], function (){
     
     Route::resource('/order', 'OrderController');
     Route::resource('/price', 'PriceController');
-
+    Route::resource('/user', 'UserController');
 });
 
 /**
@@ -64,5 +66,8 @@ Route::group([], function (){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::post('/logout', 'LogoutController@logout');
+
 
 

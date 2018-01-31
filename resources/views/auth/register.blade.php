@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Add User</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="/checkuser">
@@ -64,12 +64,12 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <label class="radio-inline"><input type="radio" name="role" value="vendor" checked>Продавец</label>
+                                    <label class="radio-inline"><input type="radio" name="role" value="2" checked>Продавец</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <label class="radio-inline"><input type="radio" name="role" value="agent">Доверенный пользователь</label>
+                                    <label class="radio-inline"><input type="radio" name="role" value="3">Доверенный пользователь</label>
                                 </div>
                             </div>
                         </div>

@@ -30,7 +30,7 @@ class SaveUserFieldsController extends Controller
                 'name'      => $user->username,
                 'email'     => $user->email,
                 'password'  => $user->password,
-                'role'      => "user",
+                'role'      => $user->role,
                 'shop_id'   => "1",
             ]
         );

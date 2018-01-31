@@ -18,7 +18,7 @@ class CreateUserTable extends Migration
             $table->string('name', 60);
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->string('role', 30);
+            $table->integer('role',2);
     // создание поля для связывания с таблицей shops
             $table->integer('shop_id')->unsigned();
     //создание внешнего ключа для поля 'shop_id', который связан с полем id таблицы 'shops'
