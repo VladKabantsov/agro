@@ -83,7 +83,7 @@
         </div>
         </div>
         <div class="panel-footer">
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary" >Добавить</button>
         </div>
         
         </form>

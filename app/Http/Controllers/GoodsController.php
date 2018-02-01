@@ -22,30 +22,12 @@ class GoodsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $goods = Goods::all();
-//        $сategories = Category::all();
-//        $manfacs = Manufacturer::all();
-//        $measures = Measure::all();
-//        
-//        return view('goods.goods_index', [
-//            'goods'      => $goods,
-//            'сategories' => $сategories,
-//            'manfacs'     => $manfacs,
-//            'measures'   => $measures
-//        ]);
-//        return view('goods.goods_index');
-        $sql = "select g.id, g.g_name, g.barcode, c.cat_name, mf.manfac_name, 
-                       m.meas_name, g.rec_price
-                from goods g 
-                    join measures m on g.measure_id = m.id
-                    join manufacturers mf on g.manfac_id = mf.id
-                    join categories c on g.manfac_id = c.id";
-        
-        $goods = DB::select($sql);
-        
-        return view('goods.goods_index', ['goods' => $goods]);
+        $goods = new Goods();
+        $goodsCollection = $goods->findGoodsCollection();
+
+        return view('goods.goods_index', ['goods' => $goodsCollection]);
     }
     
     public function data()
@@ -73,7 +55,7 @@ class GoodsController extends Controller
         $сategories = Category::all();
         $manfacs = Manufacturer::all();
         $measures = Measure::all();
-        
+
         return view('goods.goods_create', [
             'сategories' => $сategories,
             'manfacs'     => $manfacs,
@@ -89,25 +71,30 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-        dd(Auth::user());
-        $data = $request->validate([
-            
-            'g_name'        => 'required',
-            'barcode'       => 'required',
-            'categories_id' => 'required',
-            'manfac_id'     => 'required',
-            'measure_id'    => 'required',
-            'rec_price'     => 'required',
-            'description'   => 'required',
-        ]);
-        $data = $request->except('_token');
-                    
-        $goods = new \App\Goods();
-        $goods->fill($data);
-        $goods->save();
-        
-        return redirect()->route('goods.create')
-                         ->with('status', 'Добавлен успешно');
+        $goods = new Goods();
+        $test = new Goods();
+        $goods->getGoodInputs();
+        $test->insertNewGoodInTable($goods);
+//        dd(Auth::user());
+//        $data = $request->validate([
+//
+//
+//            'g_name'        => 'required',
+//            'barcode'       => 'required',
+//            'categories_id' => 'required',
+//            'manfac_id'     => 'required',
+//            'measure_id'    => 'required',
+//            'rec_price'     => 'required',
+//            'description'   => 'required',
+//        ]);
+//        $data = $request->except('_token');
+//
+//        $goods = new \App\Goods();
+//        $goods->fill($data);
+//        $goods->save();
+//
+//        return redirect()->route('goods.create')
+//                         ->with('status', 'Добавлен успешно');
     }
 
     /**
