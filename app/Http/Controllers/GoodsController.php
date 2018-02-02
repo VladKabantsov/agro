@@ -55,8 +55,12 @@ class GoodsController extends Controller
         $сategories = Category::all();
         $manfacs = Manufacturer::all();
         $measures = Measure::all();
+        $title = "Добавление товара";
+        $route = route('goods.store');
 
         return view('goods.goods_create', [
+            'title'         => $title,
+            'route'         => $route,
             'сategories' => $сategories,
             'manfacs'     => $manfacs,
             'measures'   => $measures
@@ -71,30 +75,25 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-        $goods = new Goods();
-        $test = new Goods();
-        $goods->getGoodInputs();
-        $test->insertNewGoodInTable($goods);
-//        dd(Auth::user());
-//        $data = $request->validate([
-//
-//
-//            'g_name'        => 'required',
-//            'barcode'       => 'required',
-//            'categories_id' => 'required',
-//            'manfac_id'     => 'required',
-//            'measure_id'    => 'required',
-//            'rec_price'     => 'required',
-//            'description'   => 'required',
-//        ]);
-//        $data = $request->except('_token');
-//
-//        $goods = new \App\Goods();
-//        $goods->fill($data);
-//        $goods->save();
-//
-//        return redirect()->route('goods.create')
-//                         ->with('status', 'Добавлен успешно');
+
+        $data = $request->validate([
+
+            'g_name'        => 'required',
+            'barcode'       => 'required',
+            'categories_id' => 'required',
+            'manfac_id'     => 'required',
+            'measure_id'    => 'required',
+            'rec_price'     => 'required',
+            'description'   => 'required',
+        ]);
+        $data = $request->except('_token');
+
+        $goods = new \App\Goods();
+        $goods->fill($data);
+        $goods->save();
+
+        return redirect()->route('goods.create')
+                         ->with('status', 'Добавлен успешно');
     }
 
     /**
@@ -111,12 +110,30 @@ class GoodsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function edit($id)
+    public function edit($id = null, Request $request)
     {
-        //
+
+        if ($id) {
+            Goods::findOrFail($id)->get();
+        }
+
+        $сategories = Category::all();
+        $manfacs = Manufacturer::all();
+        $measures = Measure::all();
+        $title = "Редактирование товара";
+        $route = route('goods.update', $id);
+
+        return view('goods.goods_create', [
+            'title'         => $title,
+            'route'         => $route,
+            'сategories'    => $сategories,
+            'manfacs'       => $manfacs,
+            'measures'      => $measures
+        ]);
     }
 
     /**
@@ -126,9 +143,28 @@ class GoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = $request->validate([
+
+            'g_name'        => 'required',
+            'barcode'       => 'required',
+            'categories_id' => 'required',
+            'manfac_id'     => 'required',
+            'measure_id'    => 'required',
+            'rec_price'     => 'required',
+            'description'   => 'required',
+        ]);
+        dd($data);
+        $data = $request->except('_token');
+
+        $goods = new \App\Goods();
+        $goods->fill($data);
+        $goods->save();
+
+        DB::table('goods')
+            ->where('id', $id)
+            ->update(['votes' => 1]);
     }
 
     /**
@@ -137,8 +173,10 @@ class GoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        return Goods::findOrFail($id)->delete();
+        Goods::find($id)->delete();
+        return redirect()->route('goods.index');
     }
+
 }

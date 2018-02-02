@@ -7,10 +7,9 @@
         </div>
     @endif
     <div class="panel panel-default">
-      <div class="panel-heading">
+      <div class="panel-heading" style="padding-bottom: 25px">
         <span>Список товаров</span>
-        <a href="{{ route('goods.create') }}" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-file"></i> Новый</a>' 
-        <p></p>
+        <a href="{{ route('goods.create') }}" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-file"></i> Новый</a>
       </div>
     
     <div class="panel-body">
@@ -23,7 +22,8 @@
                <th width="10%">categorory</th>  
                <th width="10%">manfac</th>  
                <th width="5%">measure</th>  
-               <th width="10%">rec_price</th>  
+               <th width="10%">rec_price</th>
+               <th width="10%">action</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +36,10 @@
                 <td>{{ $one->manfac_name }}</td>
                 <td>{{ $one->meas_name }}</td>
                 <td>{{ $one->rec_price }}</td>
+                <td>
+                    <a href="{{ route('goods.edit', $one->id] }}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Изменить</a>
+                    <a href="goods/delete/{{$one->id}}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Удалить</a>
+                </td>
             </tr>
         @endforeach    
         </tbody>

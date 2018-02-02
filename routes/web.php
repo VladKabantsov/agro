@@ -10,7 +10,7 @@ Route::get('/array-data', 'DatatablesController@data');
 Route::get('/goods/data', 'GoodsController@data')->name('test');
 //==============================================================================
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -19,6 +19,11 @@ Route::get('/adduser', 'AddUserController@index');
 Route::post('/checkuser', 'SaveUserFieldsController@create');
 
 Route::get('/', 'CheckUserController@index');
+
+Route::get('/goods/edit/{id}',['as' => 'goods.edit', "uses" =>'GoodsController@edit'])
+
+    ->name('goods_edit')
+;
 
 //Route::get('/', function(){
 //
@@ -36,6 +41,8 @@ Route::get('/', 'CheckUserController@index');
 Route::group([], function (){
     
     Route::resource('/goods', 'GoodsController');
+    Route::get('/goods/delete/{id}',["uses" =>'GoodsController@destroy'])->where('id', '[0-9]+');
+    
     
 });
 

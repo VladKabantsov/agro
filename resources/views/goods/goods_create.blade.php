@@ -10,9 +10,9 @@
     @endif
     
     <div class="panel-heading">
-        Добавление **товара???**
+        {{ $title }}
     </div>
-    <form action="{{ route('goods.store') }}" method="POST">
+    <form action="{{ $route }}" method="POST">
 
         {!! csrf_field() !!}
         <div class="panel-body">
@@ -83,7 +83,7 @@
         </div>
         </div>
         <div class="panel-footer">
-            <button type="submit" class="btn btn-primary" >Добавить</button>
+            <button type="submit" class="btn btn-primary" >Сохранить</button>
         </div>
         
         </form>
