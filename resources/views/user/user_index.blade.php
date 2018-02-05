@@ -9,7 +9,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <span>Список пользователей</span>
-        <a href="{{ route('goods.create') }}" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-file"></i> Новый</a>'
+        <a href="{{ route('user.create') }}" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-file"></i> Новый</a>
         <p></p>
     </div>
 
@@ -36,8 +36,8 @@
                 <td>{{ $one->role }}</td>
                 <td>{{ $one->shop_id }}</td>
                 <td>
-                    <a href="#" class="btn btn-primary pull-right" style="margin-bottom: 10px">Изменить</a>
-                    <a href="#" class="btn btn-primary pull-right">Удалить</a>
+                    <a href="{{ route( 'user.edit', $one->id ) }}" class="btn btn-primary pull-right" style="margin-bottom: 10px">Изменить</a>
+                    <a href="{{ route('user.destroy', ['id' => $one->id]) }}" class="btn btn-primary pull-right">Удалить</a>
                 </td>
             </tr>
             @endforeach

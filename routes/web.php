@@ -20,10 +20,9 @@ Route::post('/checkuser', 'SaveUserFieldsController@create');
 
 Route::get('/', 'CheckUserController@index');
 
-Route::get('/goods/edit/{id}',['as' => 'goods.edit', "uses" =>'GoodsController@edit'])
-
-    ->name('goods_edit')
-;
+////Route::get('/goods/edit/{id}',['as' => 'goods.edit', "uses" =>'GoodsController@edit'])
+////    ->name('goods_edit')
+//;
 
 //Route::get('/', function(){
 //
@@ -42,18 +41,21 @@ Route::group([], function (){
     
     Route::resource('/goods', 'GoodsController');
     Route::get('/goods/delete/{id}',["uses" =>'GoodsController@destroy'])->where('id', '[0-9]+');
-    
+    Route::post('/goods/{id}', 'GoodsController@update');
     
 });
 
 /**
  *  Group of routes for 'Manager' role
  */
+Route::get('/user/{id}', 'UserController@destroy');
 Route::group([], function (){
     
     Route::resource('/order', 'OrderController');
     Route::resource('/price', 'PriceController');
     Route::resource('/user', 'UserController');
+
+//    Route::delete('/user/{id}',["uses" =>'UserController@destroy'])->where('id', '[0-9]+');
 });
 
 /**

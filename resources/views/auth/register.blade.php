@@ -1,21 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.agro_layout')
 
-@section('content')
+
+@section('main')
+
 <div class="container">
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Add User</div>
+                <div class="panel-heading">{{ $title }}</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="/checkuser">
+
+                    <form class="form-horizontal" method="POST" action="{{ $route }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $user[0]->name }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -29,7 +33,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $user[0]->email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -64,12 +68,20 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <label class="radio-inline"><input type="radio" name="role" value="2" checked>Продавец</label>
+                                    @if( $user[0]->role === 2 )
+                                        <label class="radio-inline"><input type="radio" name="role" value="2" checked>Продавец</label>
+                                    @else
+                                        <label class="radio-inline"><input type="radio" name="role" value="2">Продавец</label>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <label class="radio-inline"><input type="radio" name="role" value="3">Доверенный пользователь</label>
+                                    @if( $user[0]->role === 3 )
+                                        <label class="radio-inline"><input type="radio" name="role" value="3" checked>Доверенный пользователь</label>
+                                    @else
+                                        <label class="radio-inline"><input type="radio" name="role" value="3" >Доверенный пользователь</label>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -78,7 +90,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Сохранить
                                 </button>
                             </div>
                         </div>

@@ -37,7 +37,7 @@
                 <td>{{ $one->meas_name }}</td>
                 <td>{{ $one->rec_price }}</td>
                 <td>
-                    <a href="{{ route('goods.edit', $one->id] }}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Изменить</a>
+                    <a href="{{ route('goods.edit', $one->id )}}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Изменить</a>
                     <a href="goods/delete/{{$one->id}}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Удалить</a>
                 </td>
             </tr>

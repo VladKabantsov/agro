@@ -20,7 +20,8 @@ class CheckUserController extends Controller
 
 
         /*check if user in system return him view of needed page*/
-        if( Auth::check() ){
+        if( Auth::check() )
+        {
             $role = Auth::user()->getAttributes()["role"];
             switch ($role){
                 case 1:

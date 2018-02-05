@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -15,11 +17,8 @@ class UserController extends Controller
     public function index()
     {
 
-        $sql = "select u.id, u.name, u.email, u.password, u.role, u.shop_id 
-                from users u";
-
-        $users = DB::select($sql);
-//        dd($users);
+        $users = new User();
+        $users = $users->getAllUser();
         return view('user.user_index', ['users' => $users]);
     }
 
@@ -30,7 +29,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Добавить пользователя';
+        $user = new User();
+        $route = route('user.store');
+        return view('auth.register', [
+            'route' => $route,
+            'title' => $title,
+            'user'  => $user,
+        ]);
     }
 
     /**
@@ -41,7 +47,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'        => 'required',
+            'email'       => 'required',
+            'password'    => 'required',
+            'role'        => 'required',
+        ]);
+
+        $user = new User();
+        $user ->fill($data);
+        $user ->save();
+
+        return redirect()->route('user.index')
+            ->with('status', 'Пользователь добавлен успешно');
     }
 
     /**
@@ -63,7 +81,20 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        if ($id)
+        {
+            User::findOrFail($id)->get();
+        }
+
+        $user = new User();
+        $user = $user->getUser($id);
+        $title = "Редактирование пользователя";
+        $route = route('user.update', $id);
+        return view('auth.register', [
+            'user'     => $user,
+            'title'    => $title,
+            'route'    => $route,
+        ]);
     }
 
     /**
@@ -86,6 +117,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+//        dd($id);
+        User::find($id)->delete();
+        return redirect()->route('user.index');
     }
 }

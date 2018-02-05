@@ -40,8 +40,7 @@ class Goods extends Model
             ->join('manufacturers', 'goods.categories_id', '=', 'manufacturers.id')
             ->join('measures', 'goods.categories_id', '=', 'measures.id')
             ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name', 'measures.meas_name',  'rec_price')
-            ->get()
-        ;
+            ->get();
 
         return $goods;
     }
@@ -49,6 +48,12 @@ class Goods extends Model
     /**
      *
      */
+    public function getGoodsFromTable($id){
+        $goods = DB::table('goods')
+            ->where('id', '=', $id)
+            ->get()->all();
+        return $goods;
+    }
 //    public function getGoodInputs()
 //    {
 //        $good = new \stdClass;

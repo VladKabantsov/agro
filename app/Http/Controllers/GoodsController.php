@@ -57,13 +57,15 @@ class GoodsController extends Controller
         $measures = Measure::all();
         $title = "Добавление товара";
         $route = route('goods.store');
+        $good[0] = new Goods();
 
         return view('goods.goods_create', [
             'title'         => $title,
             'route'         => $route,
-            'сategories' => $сategories,
-            'manfacs'     => $manfacs,
-            'measures'   => $measures
+            'сategories'    => $сategories,
+            'manfacs'       => $manfacs,
+            'measures'      => $measures,
+            'good'          => $good,
         ]);
     }
 
@@ -117,22 +119,26 @@ class GoodsController extends Controller
     public function edit($id = null, Request $request)
     {
 
-        if ($id) {
-            Goods::findOrFail($id)->get();
+        if ($id)
+        {
+           Goods::findOrFail($id)->get();
         }
 
+        $goods = new Goods();
+
+        $good = $goods->getGoodsFromTable($id);
         $сategories = Category::all();
         $manfacs = Manufacturer::all();
         $measures = Measure::all();
         $title = "Редактирование товара";
         $route = route('goods.update', $id);
-
         return view('goods.goods_create', [
             'title'         => $title,
             'route'         => $route,
             'сategories'    => $сategories,
             'manfacs'       => $manfacs,
-            'measures'      => $measures
+            'measures'      => $measures,
+            'good'          => $good,
         ]);
     }
 
@@ -143,7 +149,7 @@ class GoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id = null ,Request $request)
     {
         $data = $request->validate([
 
@@ -155,16 +161,18 @@ class GoodsController extends Controller
             'rec_price'     => 'required',
             'description'   => 'required',
         ]);
-        dd($data);
+//        dd($data);
         $data = $request->except('_token');
 
         $goods = new \App\Goods();
         $goods->fill($data);
-        $goods->save();
+//        $goods->save();
 
         DB::table('goods')
             ->where('id', $id)
-            ->update(['votes' => 1]);
+            ->update($data);
+        return redirect()->route('goods.create')
+                        ->with('status', 'Обновлен успешно');
     }
 
     /**
