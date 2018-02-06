@@ -34,7 +34,9 @@ class User extends Authenticatable
      */
     public function getAllUser()
     {
-        $users = DB::table('users')->select('id', 'name', 'email', 'password', 'role', 'shop_id')->get();
+        $users = DB::table('users')
+            ->join('role', 'users.role','=','role.id')
+            ->select('users.id', 'name', 'email', 'password', 'role.role_name', 'shop_id')->get();
         return $users; 
     }
 

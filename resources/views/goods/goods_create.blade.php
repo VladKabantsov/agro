@@ -10,8 +10,7 @@
     @endif
     
     <div class="panel-heading">
-        {{ $title }}{{ $route }}
-
+        {{ $title }}
     </div>
     <form action="{{ $route }}" method="POST">
 
@@ -45,6 +44,22 @@
               </select>
               @if($errors->has('сategories_id'))
                 <span class="help-block">{{ $errors->first('сategories_id') }}</span>
+              @endif
+            </div>
+
+            <div class="form-group{{ $errors->has('subсategories_id') ? ' has-error' : '' }}">
+              <label>Подкатегория</label>
+              <select class="selectpicker form-control" id="subсategories_id" name="subcategories_id" data-live-search="true">
+              <?php foreach ($subcategories as $row): ?>
+                  @if ( $row->id == $good[0]->subcategories_id )
+                    <option value="{{ $row->id }}" selected>{{ $row->subcategories_name }}</option>
+                  @else
+                    <option value="{{ $row->id }}">{{ $row->subcategories_name }}</option>
+                  @endif
+              <?php endforeach; ?>
+              </select>
+              @if($errors->has('subcategories_id'))
+                <span class="help-block">{{ $errors->first('subcategories_id') }}</span>
               @endif
             </div>
 

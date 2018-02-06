@@ -28,7 +28,10 @@ class CreateGoodsTable extends Migration
                   ->on('manufacturers')->onUpdate('cascade');
             $table->integer('measure_id')->unsigned();
             $table->foreign('measure_id')->references('id')
-                  ->on('measures')->onUpdate('cascade');  
+                  ->on('measures')->onUpdate('cascade');
+            $table->integer('subcategories_id')->unsigned();
+            $table->foreign('subcategories_id')->references('id')
+                ->on('sub_categories');
         });              
     }
 

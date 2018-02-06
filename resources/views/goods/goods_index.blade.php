@@ -17,13 +17,14 @@
         <thead>
             <tr>  
                <th width="5%">id</th>  
-               <th width="15%">name</th>  
-               <th width="10%">barcode</th>  
-               <th width="10%">categorory</th>  
-               <th width="10%">manfac</th>  
-               <th width="5%">measure</th>  
-               <th width="10%">rec_price</th>
-               <th width="10%">action</th>
+               <th width="15%">Имя</th>
+               <th width="10%">Код</th>
+               <th width="10%">Кат-ия</th>
+               <th width="10%">Подкат-ия</th>
+               <th width="10%">Про-ль</th>
+               <th width="5%">Мера</th>
+               <th width="10%">Цена</th>
+               <th width="10%">Действие</th>
             </tr>
         </thead>
         <tbody>
@@ -33,12 +34,18 @@
                 <td>{{ $one->g_name }}</td>
                 <td>{{ $one->barcode }}</td>
                 <td>{{ $one->cat_name }}</td>
+                <td>{{ $one->subcategories_name }}</td>
                 <td>{{ $one->manfac_name }}</td>
                 <td>{{ $one->meas_name }}</td>
                 <td>{{ $one->rec_price }}</td>
                 <td>
                     <a href="{{ route('goods.edit', $one->id )}}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Изменить</a>
-                    <a href="goods/delete/{{$one->id}}" class="btn btn-primary pull-right" style="margin-bottom: 25px">Удалить</a>
+                    <form action="{{ route('goods.destroy' , $one->id)}}" method="POST">
+                        <input name="_method" type="hidden" value="DELETE">
+                        {{ csrf_field() }}
+
+                        <button type="submit" class="btn btn-primary pull-right">Удалить</button>
+                    </form>
                 </td>
             </tr>
         @endforeach    

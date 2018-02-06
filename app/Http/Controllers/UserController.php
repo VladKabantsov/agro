@@ -30,8 +30,9 @@ class UserController extends Controller
     public function create()
     {
         $title = 'Добавить пользователя';
-        $user = new User();
         $route = route('user.store');
+        $user[0] = new User();
+//        dd($user[0]);
         return view('auth.register', [
             'route' => $route,
             'title' => $title,
@@ -106,7 +107,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name'        => 'required',
+            'email'       => 'required',
+            'password'    => 'required',
+            'role'        => 'required',
+        ]);
+
+        $user = new User();
+        $user->fill($data);
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update($data);
+        return redirect()->route('user.index')
+            ->with('status', 'Обновлен успешно');
     }
 
     /**

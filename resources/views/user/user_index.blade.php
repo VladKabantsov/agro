@@ -33,11 +33,16 @@
                 <td>{{ $one->name }}</td>
                 <td>{{ $one->email }}</td>
 <!--                <td>{{ $one->password }}</td>-->
-                <td>{{ $one->role }}</td>
+                <td>{{ $one->role_name }}</td>
                 <td>{{ $one->shop_id }}</td>
                 <td>
                     <a href="{{ route( 'user.edit', $one->id ) }}" class="btn btn-primary pull-right" style="margin-bottom: 10px">Изменить</a>
-                    <a href="{{ route('user.destroy', ['id' => $one->id]) }}" class="btn btn-primary pull-right">Удалить</a>
+                    <form action="{{ route('user.destroy' , $one->id)}}" method="POST">
+                        <input name="_method" type="hidden" value="DELETE">
+                        {{ csrf_field() }}
+
+                            <button type="submit" class="btn btn-primary pull-right">Удалить</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

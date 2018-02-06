@@ -40,7 +40,7 @@ Route::get('/', 'CheckUserController@index');
 Route::group([], function (){
     
     Route::resource('/goods', 'GoodsController');
-    Route::get('/goods/delete/{id}',["uses" =>'GoodsController@destroy'])->where('id', '[0-9]+');
+//    Route::get('/goods/delete/{id}',["uses" =>'GoodsController@destroy'])->where('id', '[0-9]+');
     Route::post('/goods/{id}', 'GoodsController@update');
     
 });
@@ -48,13 +48,13 @@ Route::group([], function (){
 /**
  *  Group of routes for 'Manager' role
  */
-Route::get('/user/{id}', 'UserController@destroy');
+Route::resource('/user', 'UserController');
+Route::post('/user/{id}', 'UserController@update');
+
 Route::group([], function (){
     
     Route::resource('/order', 'OrderController');
     Route::resource('/price', 'PriceController');
-    Route::resource('/user', 'UserController');
-
 //    Route::delete('/user/{id}',["uses" =>'UserController@destroy'])->where('id', '[0-9]+');
 });
 

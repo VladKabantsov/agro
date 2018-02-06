@@ -14,7 +14,7 @@ class Goods extends Model
     
     protected $fillable = [
         'barcode', 'categories_id', 'manfac_id', 'measure_id', 'g_name', 
-        'rec_price', 'description'
+        'rec_price', 'description', 'subcategories_id'
     ];
     
     public function orders()
@@ -39,7 +39,9 @@ class Goods extends Model
             ->join('categories', 'goods.categories_id', '=', 'categories.id')
             ->join('manufacturers', 'goods.categories_id', '=', 'manufacturers.id')
             ->join('measures', 'goods.categories_id', '=', 'measures.id')
-            ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name', 'measures.meas_name',  'rec_price')
+            ->join('sub_categories', 'goods.subcategories_id', '=', 'sub_categories.id')
+            ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name',
+                    'measures.meas_name',  'rec_price', 'sub_categories.subcategories_name')
             ->get();
 
         return $goods;
@@ -54,30 +56,5 @@ class Goods extends Model
             ->get()->all();
         return $goods;
     }
-//    public function getGoodInputs()
-//    {
-//        $good = new \stdClass;
-//
-//        $good->barcode = Input::get('barcode');
-//        $good->g_name = Input::get('g_name');
-//        $good->rec_price = Input::get('rec_price');
-//        $good->description = Input::get('description');
-//        $good->categories_id = Input::get('categories_id');
-//        $good->manfac_id = Input::get('manfac_id');
-//        $good->measure_id = Input::get('measure_id');
-//        DB::table('goods')->insert(
-//            [
-//                'barcode'       => $good->barcode,
-//                'g_name'        => $good->g_name,
-//                'rec_price'     => $good->rec_price,
-//                'description'   => $good->description,
-//                'categories_id' => $good->categories_id,
-//                'manfac_id'     => $good->manfac_id,
-//                'measure_id'    => $good->measure_id,
-//            ]
-//        );
-////        dd($good);
-//        return $good;
-//    }
 
 }

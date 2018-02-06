@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\SubCategories;
+use App\SubCategory;
 use Illuminate\Http\Request;
 
 //use App\Http\Controllers\StoreGoods; 
@@ -29,7 +31,7 @@ class GoodsController extends Controller
 
         return view('goods.goods_index', ['goods' => $goodsCollection]);
     }
-    
+
     public function data()
     {
         // TODO: сделать вьюху
@@ -39,12 +41,12 @@ class GoodsController extends Controller
                     join measures m on g.measure_id = m.id
                     join manufacturers mf on g.manfac_id = mf.id
                     join categories c on g.manfac_id = c.id";
-        
+
         $goods = DB::select($sql);
-        
-        
+
+
         return Datatables::of($goods)->make(true);
-    }        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -58,6 +60,7 @@ class GoodsController extends Controller
         $title = "Добавление товара";
         $route = route('goods.store');
         $good[0] = new Goods();
+        $subcategories = SubCategories::all();
 
         return view('goods.goods_create', [
             'title'         => $title,
@@ -66,6 +69,7 @@ class GoodsController extends Controller
             'manfacs'       => $manfacs,
             'measures'      => $measures,
             'good'          => $good,
+            'subcategories' => $subcategories,
         ]);
     }
 
@@ -77,24 +81,25 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-
+//        dd($request);
         $data = $request->validate([
 
-            'g_name'        => 'required',
-            'barcode'       => 'required',
-            'categories_id' => 'required',
-            'manfac_id'     => 'required',
-            'measure_id'    => 'required',
-            'rec_price'     => 'required',
-            'description'   => 'required',
+            'g_name'            => 'required',
+            'barcode'           => 'required',
+            'categories_id'     => 'required',
+            'manfac_id'         => 'required',
+            'measure_id'        => 'required',
+            'rec_price'         => 'required',
+            'description'       => 'required',
+            'subcategories_id'  => 'required',
         ]);
         $data = $request->except('_token');
-
+//        dd($data);
         $goods = new \App\Goods();
         $goods->fill($data);
         $goods->save();
 
-        return redirect()->route('goods.create')
+        return redirect()->route('goods.index')
                          ->with('status', 'Добавлен успешно');
     }
 
@@ -130,6 +135,7 @@ class GoodsController extends Controller
         $сategories = Category::all();
         $manfacs = Manufacturer::all();
         $measures = Measure::all();
+        $subcategories = SubCategories::all();
         $title = "Редактирование товара";
         $route = route('goods.update', $id);
         return view('goods.goods_create', [
@@ -139,6 +145,7 @@ class GoodsController extends Controller
             'manfacs'       => $manfacs,
             'measures'      => $measures,
             'good'          => $good,
+            'subcategories' => $subcategories,
         ]);
     }
 
@@ -171,7 +178,7 @@ class GoodsController extends Controller
         DB::table('goods')
             ->where('id', $id)
             ->update($data);
-        return redirect()->route('goods.create')
+        return redirect()->route('goods.index')
                         ->with('status', 'Обновлен успешно');
     }
 
