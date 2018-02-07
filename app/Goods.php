@@ -35,6 +35,7 @@ class Goods extends Model
      */
     public function findGoodsCollection()
     {
+        
         $goods = \DB::table('goods')
             ->join('categories', 'goods.categories_id', '=', 'categories.id')
             ->join('manufacturers', 'goods.categories_id', '=', 'manufacturers.id')
@@ -42,6 +43,19 @@ class Goods extends Model
             ->join('sub_categories', 'goods.subcategories_id', '=', 'sub_categories.id')
             ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name',
                     'measures.meas_name',  'rec_price', 'sub_categories.subcategories_name')
+            ->get();
+
+        return $goods;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getGoodsCategory()
+    {
+        $goods = \DB::table('categories')
+            ->groupBy('cat_name')
             ->get();
 
         return $goods;

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class CheckUser
 {
@@ -13,8 +14,13 @@ class CheckUser
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
+        $user = Auth::user();
+        if ($user['role']!=$role) {
+            return redirect('/');
+        }
+        
         return $next($request);
     }
 }

@@ -20,35 +20,21 @@ Route::post('/checkuser', 'SaveUserFieldsController@create');
 
 Route::get('/', 'CheckUserController@index');
 
-////Route::get('/goods/edit/{id}',['as' => 'goods.edit', "uses" =>'GoodsController@edit'])
-////    ->name('goods_edit')
-//;
-
-//Route::get('/', function(){
-//
-//    return view('layouts.agro_layout');
-//});
-
-//Route::get('/adduser', function(){
-//
-//    return view('auth.register');
-//});
 
 /**
  *  Group of routes for 'Boss' role
  */
 Route::group([], function (){
     
-    Route::resource('/goods', 'GoodsController');
-//    Route::get('/goods/delete/{id}',["uses" =>'GoodsController@destroy'])->where('id', '[0-9]+');
+    Route::resource('/goods', 'GoodsController')->middleware('user:1');
     Route::post('/goods/{id}', 'GoodsController@update');
     
 });
-
+//    Route::get('/register-admin', 'AddUserController@createAdmin');
 /**
  *  Group of routes for 'Manager' role
  */
-Route::resource('/user', 'UserController');
+Route::resource('/user', 'UserController')->middleware('user:1');
 Route::post('/user/{id}', 'UserController@update');
 
 Route::group([], function (){

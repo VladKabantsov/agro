@@ -27,26 +27,17 @@ class GoodsController extends Controller
     public function index(Request $request)
     {
         $goods = new Goods();
+        $goods_cat = new Goods();
         $goodsCollection = $goods->findGoodsCollection();
-
-        return view('goods.goods_index', ['goods' => $goodsCollection]);
+        $goods_cat = $goods_cat->getGoodsCategory();
+//        dd($goods_cat);
+//        dd($goodsCollection[0]->cat_name);
+        return view('layouts.products_list', [
+            'goods' => $goodsCollection,
+            'goodsCat' => $goods_cat,
+        ]);
     }
 
-    public function data()
-    {
-        // TODO: сделать вьюху
-        $sql = "select g.id, g.g_name, g.barcode, c.cat_name, mf.manfac_name, 
-                       m.meas_name, g.rec_price
-                from goods g 
-                    join measures m on g.measure_id = m.id
-                    join manufacturers mf on g.manfac_id = mf.id
-                    join categories c on g.manfac_id = c.id";
-
-        $goods = DB::select($sql);
-
-
-        return Datatables::of($goods)->make(true);
-    }
     /**
      * Show the form for creating a new resource.
      *

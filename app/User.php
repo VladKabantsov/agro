@@ -36,7 +36,9 @@ class User extends Authenticatable
     {
         $users = DB::table('users')
             ->join('role', 'users.role','=','role.id')
-            ->select('users.id', 'name', 'email', 'password', 'role.role_name', 'shop_id')->get();
+            ->select('users.id', 'name', 'email', 'password', 'role.role_name', 'shop_id')
+            ->where('users.role','!=',1)
+            ->get();
         return $users; 
     }
 
