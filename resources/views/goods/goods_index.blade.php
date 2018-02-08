@@ -11,7 +11,7 @@
         <span>Список товаров</span>
         <a href="{{ route('goods.create') }}" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-file"></i> Новый</a>
       </div>
-    <div class="row">
+    <div class="row list-of-goods">
         <div class="col-md-2">
             @yield('list')
         </div>

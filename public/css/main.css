@@ -1,0 +1,17 @@
+#list {
+}
+#list > li {
+}
+#list > li > ul {
+    display: none;
+}
+.subcat{
+    margin-left: 15px;
+}
+.cat{
+    font-weight: bold;
+}
+.active{
+    display: block;
+    background-color: #eee;
+}

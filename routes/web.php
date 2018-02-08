@@ -20,6 +20,7 @@ Route::post('/checkuser', 'SaveUserFieldsController@create');
 
 Route::get('/', 'CheckUserController@index');
 
+Route::get('/vendor', 'VendorController@index');
 
 /**
  *  Group of routes for 'Boss' role

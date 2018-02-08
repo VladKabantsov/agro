@@ -28,13 +28,17 @@ class GoodsController extends Controller
     {
         $goods = new Goods();
         $goods_cat = new Goods();
+        $goods_subcat = new Goods();
         $goodsCollection = $goods->findGoodsCollection();
         $goods_cat = $goods_cat->getGoodsCategory();
-//        dd($goods_cat);
+        $goods_subcat = $goods_subcat->getGoodsSubCategory();
+//        dd($goods_subcat);
 //        dd($goodsCollection[0]->cat_name);
         return view('layouts.products_list', [
-            'goods' => $goodsCollection,
-            'goodsCat' => $goods_cat,
+            'goods'                 => $goodsCollection,
+            'goodsCat'              => $goods_cat,
+            'goodsSubCat'           => $goods_subcat,
+            'idActiveSubCategory'   => '0',
         ]);
     }
 
@@ -102,7 +106,19 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        return Goods::findOrFail($id)->get();
+        $goods = new Goods();
+        $goods_cat = new Goods();
+        $goods_subcat = new Goods();
+        $goods_cat = $goods_cat->getGoodsCategory();
+        $goods_subcat = $goods_subcat->getGoodsSubCategory();
+        $goods = $goods->getGoodsOnIndexSubCategory($id);
+//        dd($goods);
+        return view('layouts.products_list', [
+            'goods'                 => $goods,
+            'goodsCat'              => $goods_cat,
+            'goodsSubCat'           => $goods_subcat,
+            'idActiveSubCategory'   => $id,
+        ]);
     }
 
     /**

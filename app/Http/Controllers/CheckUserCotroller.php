@@ -28,7 +28,7 @@ class CheckUserController extends Controller
                     return view('layouts.agro_layout');
                     break;
                 case 2:
-                    return view('layouts.vendor');
+                    return redirect('/vendor');
                     break;
                 case 3:
                     return view('layouts.agent');
