@@ -15,7 +15,7 @@
         <div class="col-md-2">
             @yield('list')
         </div>
-        <div class="panel-body col-md-10">
+        <div class="panel-body col-md-10 scroll">
             <table class="table table-bordered table-striped" id="users-table">
                 <thead>
                     <tr>
