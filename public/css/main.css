@@ -1,3 +1,6 @@
+body {
+    font-size: 13px;
+}
 #list {
 }
 #list > li {
@@ -14,4 +17,17 @@
 .active{
     display: block;
     background-color: #eee;
+}
+.scroll{
+    height: 500px; /* Высота блока */
+    width: 100%;
+    overflow: scroll; /* Добавляем полосы прокрутки */
+    padding: 7px; /* Поля вокруг текста */
+    border: 1px solid #333; /* Параметры рамки */
+}
+
+.check-list{
+    background-color: #EEEEEE;
+    min-height: 200px;
+    border-radius: 15px;
 }

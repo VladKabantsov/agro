@@ -31,9 +31,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($goods as $one)
+                @foreach ($goods as $key => $one)
                     <tr>
-                        <td>{{ $one->id }}</td>
+                        <td>{{ $one->id }} {{ $key }}</td>
                         <td>{{ $one->g_name }}</td>
                         <td>{{ $one->barcode }}</td>
                         <td>{{ $one->cat_name }}</td>

@@ -180,6 +180,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+
     ],
 
     /*
@@ -232,6 +234,7 @@ return [
 //        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'DataTables' => Yajra\Datatables\Facades\Datatables::class,
+        'JavaScript' => Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
 
     ],
 
