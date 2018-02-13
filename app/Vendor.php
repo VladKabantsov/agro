@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Vendor extends Model
 {
@@ -26,7 +28,7 @@ class Vendor extends Model
                ->join('sub_categories', 'goods.subcategories_id', '=', 'sub_categories.id')
                ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name',
                    'measures.meas_name',  'rec_price', 'sub_categories.subcategories_name', 'quantity')
-               ->get();
+               ->paginate(3);
 
         return $goods;
     }

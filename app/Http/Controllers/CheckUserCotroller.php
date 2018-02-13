@@ -25,7 +25,8 @@ class CheckUserController extends Controller
             $role = Auth::user()->getAttributes()["role"];
             switch ($role){
                 case 1:
-                    return view('layouts.agro_layout');
+//                    return view('layouts.agro_layout');
+                    return redirect()->route('goods.index');
                     break;
                 case 2:
                     return redirect('/vendor');

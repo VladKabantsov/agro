@@ -48,20 +48,20 @@
                 <div class="panel-body col-md-10">
                     <table class="table table-bordered table-striped" id="users-table">
                         <thead>
-                        <tr>
-                            <th width="15%">Имя</th>
-                            <th width="10%">Код</th>
-                            <th width="10%">Кат-ия</th>
-                            <th width="10%">Подкат-ия</th>
-                            <th width="10%">Про-ль</th>
-                            <th width="5%">Мера</th>
-                            <th width="10%">Цена</th>
-                            <th width="10%">Кол-во</th>
-                            <th width="10%">Действие</th>
-                        </tr>
+                            <tr>
+                                <th width="15%">Имя</th>
+                                <th width="10%">Код</th>
+                                <th width="10%">Кат-ия</th>
+                                <th width="10%">Подкат-ия</th>
+                                <th width="10%">Про-ль</th>
+                                <th width="15%">Ед. измерения</th>
+                                <th width="10%">Цена</th>
+                                <th width="10%">Кол-во</th>
+                                <th width="10%">Действие</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($goods as $one)
+                        @foreach ($goods as $key=>$one)
                             <tr>
                                 <td>{{ $one->g_name }}</td>
                                 <td>{{ $one->barcode }}</td>
@@ -80,6 +80,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $goods->links() }}
                 </div>
             </div>
         </div>

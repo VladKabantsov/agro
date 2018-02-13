@@ -1,1 +1,1 @@
-SELECT * FROM sub_categories; 
+SELECT * FROM goods; 

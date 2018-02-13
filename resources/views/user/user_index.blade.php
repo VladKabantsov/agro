@@ -41,7 +41,7 @@
                         <input name="_method" type="hidden" value="DELETE">
                         {{ csrf_field() }}
 
-                            <button type="submit" class="btn btn-primary pull-right">Удалить</button>
+                            <button type="submit" id="delete" class="btn btn-primary pull-right">Удалить</button>
                     </form>
                 </td>
             </tr>
