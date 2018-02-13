@@ -72,7 +72,7 @@
                                 <td>{{ $one->rec_price }}</td>
                                 <td>{{ $one->quantity }}</td>
                                 <td>
-                                    <a class="btn btn-primary pull-right" id="btn-add {{$one->id}}">
+                                    <a class="btn btn-primary pull-right" id="btn-add">
                                         Добавить
                                     </a>
                                 </td>
@@ -84,7 +84,8 @@
             </div>
         </div>
         <div class="col-md-2 check-list">
-            <p class="list-of-goods"></p>            
+            <p class="list-of-goods"></p>
+
         </div>
     </div>
 </div>

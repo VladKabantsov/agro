@@ -32,8 +32,6 @@ class GoodsController extends Controller
         $goodsCollection = $goods->findGoodsCollection();
         $goods_cat = $goods_cat->getGoodsCategory();
         $goods_subcat = $goods_subcat->getGoodsSubCategory();
-//        dd($goods_subcat);
-//        dd($goodsCollection[0]->cat_name);
         return view('layouts.products_list', [
             'goods'                 => $goodsCollection,
             'goodsCat'              => $goods_cat,

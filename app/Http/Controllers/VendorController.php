@@ -21,6 +21,7 @@ class VendorController extends Controller
         $goods_subcat = $goods_subcat->getGoodsSubCategory();
         $goods_name = $goods_name->getGoodsForAName();
         $array = array();
+
 //        dd($goods);
         foreach ($goods as $value) {
             array_push($array, [
@@ -33,6 +34,17 @@ class VendorController extends Controller
         }
         JavaScript::put([
             'goods_params' => $array,
+        ]);
+
+        foreach ($goods_name as $value) {
+            array_push($array, $value->g_name);
+
+        }
+//        dd($array);
+//        $goods_name = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+//        dd($goods_name[0]->g_name);
+        JavaScript::put([
+            'goods_name' => $array,
         ]);
         return view('layouts.vendor', [
             'goods'                 => $goods,
