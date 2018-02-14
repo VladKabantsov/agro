@@ -34,7 +34,7 @@
                 </ul>
             </div>
         </div>
-        <div class="panel-body col-md-8">
+        <div class="panel-body col-md-7">
             <div class="container-fluid">
                 <div class="ui-widget">
                     <label for="tags">Товар: </label>
@@ -45,7 +45,7 @@
                         Добавить
                     </a>
                 </div>
-                <div class="panel-body col-md-10">
+                <div class="panel-body col-md-8">
                     <table class="table table-bordered table-striped" id="users-table">
                         <thead>
                             <tr>
@@ -84,9 +84,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2 check-list">
-            <p class="list-of-goods"></p>
+        <div class="col-md-3 check-list">
+                <table class="table">
+                    <thead>
+                        <th>Наим.</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                        <th>Удал.</th>
+                    </thead>
+                    <tbody class="list-of-goods">
 
+                    </tbody>
+                </table>
+                <p class="inline">
+                    <label>Итог: </label>
+                    <span id="amount" class="pull-right"><span class="grn pull-right">грн</span></span>
+
+                </p>
+                <a class="btn btn-success">Подтвердить</a>
         </div>
     </div>
 </div>

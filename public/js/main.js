@@ -4,13 +4,14 @@
 $(document).ready(function () {
 
     var num_of_orders = 0; //this variable use for setup id of order in check list
-
+    var goodsFromDb = window.goods_params;
+    var amountCheckList = 0; //Finally amount in check list
     /*autocomplete input*/
     console.log(window.goods_params); // goods_name from VendorController
     if (window.goods_params !== undefined) {
         $(function () {
             var availableTags = [];
-            var goodsFromDb = window.goods_params;
+
             goodsFromDb.forEach(function callback(value, index, array) {
                 availableTags[index] = value['name'];
             });
@@ -26,17 +27,33 @@ $(document).ready(function () {
 
         var tags = $('#tags').val();
         var goods_number = $('#goods-number').val();
-
+        var goodsPrice;
         if (goods_number>0 && tags!="") {
+
+            goodsFromDb.forEach(function callback(value, index, array) {
+                // console.log(value['price']);
+                if (tags==value['name']) {
+                    goodsPrice = value['price'];
+                }
+            });
             num_of_orders++;
-            $('.list-of-goods ').after("<div class='row'><div class='col-md-6'>"
-                + tags +
-                "</div><div class='col-md-6'>"
-                + goods_number +
-                "<a class='btn btn-danger pull-right'>x</a>" +
-                "</div>" +
-                "</div>");
-            $('.check-list div:first a:first').attr('id', num_of_orders);
+            $('.list-of-goods ').append("<tr>" +
+                "<td>"
+                    + tags +
+                "</td>" +
+                "<td>"
+                    + goods_number +
+                "</td>" +
+                "<td>" +
+                    +goodsPrice+
+                "</td>"+
+                "<td>" +
+                    "<a class='btn btn-danger'>x</a>"+
+                "</td>"+
+                "</tr>");
+            amountCheckList += goods_number*goodsPrice;
+            $('.check-list tr:first a:first').attr('id', num_of_orders);
+            $('#amount').append().text(amountCheckList);
             // $('.check-list a:first').attr('id', num_of_orders);
         }
     });

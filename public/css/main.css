@@ -31,3 +31,14 @@ body {
     min-height: 200px;
     border-radius: 15px;
 }
+
+#amount{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.grn{
+    margin-left: 10px;
+    font-weight: 100;
+    font-size: 15px;
+}
