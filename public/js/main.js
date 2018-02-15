@@ -53,15 +53,9 @@ $(document).ready(function () {
                 "</tr>");
             amountCheckList += goods_number*goodsPrice;
             $('.check-list tr:first a:first').attr('id', num_of_orders);
-            $('#amount').append().text(amountCheckList);
+            $('#amount').append().text(amountCheckList+" грн");
             // $('.check-list a:first').attr('id', num_of_orders);
         }
-    });
-
-    /*delete goods from cart*/
-    $('a.btn-danger').on( "click", function() {
-        console.log("norm");
-        console.log($(this).getAttribute('id'));
     });
 
     /*value to autocomplete*/
@@ -96,7 +90,12 @@ $(document).ready(function () {
 
 });
 
+/*Delete goods from check-list and minus from amount*/
 $(document).on('click', '.btn-danger', function(event) {
 
-    $(this).parent().parent().remove();
+    var goodsNumber = $(this).parent().prev().prev().text();
+    var goodsPrice = $(this).parent().prev().text();
+    console.log(goodsNumber);
+    console.log(goodsPrice);
+    //$(this).parent().parent().remove();
 });
