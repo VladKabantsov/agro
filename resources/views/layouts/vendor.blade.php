@@ -101,7 +101,7 @@
                     <span id="amount" class="pull-right"><span class="grn pull-right">грн</span></span>
 
                 </p>
-                <a class="btn btn-success">Подтвердить</a>
+                <a class="btn btn-success confirm">Подтвердить</a>
         </div>
     </div>
 </div>

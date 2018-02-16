@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     var num_of_orders = 0; //this variable use for setup id of order in check list
     var goodsFromDb = window.goods_params;
-    var amountCheckList = 0; //Finally amount in check list
+    amountCheckList = 0; //Finally amount in check list
     /*autocomplete input*/
     console.log(window.goods_params); // goods_name from VendorController
     if (window.goods_params !== undefined) {
@@ -88,14 +88,22 @@ $(document).ready(function () {
         alert("Вы не можете удалить товар который есть на складе!!!");
     });
 
+    /*confirm check-list*/
+    $('.confirm').on("click", function() {
+        //there should be accept to db
+    });
+
 });
 
 /*Delete goods from check-list and minus from amount*/
 $(document).on('click', '.btn-danger', function(event) {
 
-    var goodsNumber = $(this).parent().prev().prev().text();
-    var goodsPrice = $(this).parent().prev().text();
-    console.log(goodsNumber);
-    console.log(goodsPrice);
-    //$(this).parent().parent().remove();
+    var objectOfRow = $(this).parents('tr');
+    var goodsNumber = objectOfRow.find('td:nth-child(2)').text();
+    var goodsPrice = objectOfRow.find('td:nth-child(3)').text();
+
+    amountCheckList -= goodsNumber*goodsPrice;
+
+    $('#amount').append().text(amountCheckList+" грн");
+    $(this).parents('tr').remove();
 });
