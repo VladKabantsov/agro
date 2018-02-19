@@ -14,7 +14,7 @@ class Goods extends Model
     
     protected $fillable = [
         'barcode', 'categories_id', 'manfac_id', 'measure_id', 'g_name', 
-        'rec_price', 'description', 'subcategories_id'
+        'rec_price', 'description', 'subcategories_id', 'price_purchase'
     ];
     
     public function orders()
@@ -42,7 +42,7 @@ class Goods extends Model
             ->join('measures', 'goods.categories_id', '=', 'measures.id')
             ->join('sub_categories', 'goods.subcategories_id', '=', 'sub_categories.id')
             ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name',
-                    'measures.meas_name',  'rec_price', 'sub_categories.subcategories_name', 'quantity')
+                    'measures.meas_name',  'rec_price', 'price_purchase', 'sub_categories.subcategories_name', 'quantity')
             ->get();
 
         return $goods;

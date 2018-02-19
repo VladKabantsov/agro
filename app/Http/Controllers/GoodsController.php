@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Calculate;
 use App\SubCategories;
 use App\SubCategory;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class GoodsController extends Controller
         $goodsCollection = $goods->findGoodsCollection();
         $goods_cat = $goods_cat->getGoodsCategory();
         $goods_subcat = $goods_subcat->getGoodsSubCategory();
+
         return view('layouts.products_list', [
             'goods'                 => $goodsCollection,
             'goodsCat'              => $goods_cat,

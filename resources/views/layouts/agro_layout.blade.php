@@ -11,6 +11,9 @@
             <li class="nav-item ">
               <a class="nav-link" href="{{ route('user.index') }}">Пользователи</a>
             </li>
+             <li class="nav-item ">
+              <a class="nav-link" href="{{ route('money.index') }}">Деньги</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ route('order.index')}}">Заказы</a>
             </li>

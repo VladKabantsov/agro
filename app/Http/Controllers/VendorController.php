@@ -10,8 +10,7 @@ use JavaScript;
 
 class VendorController extends Controller
 {
-//    use JavaScript;
-    
+
     public function index(){
         $goods = new Vendor();
         $goods_cat = new Vendor();
@@ -23,7 +22,6 @@ class VendorController extends Controller
         $goods_name = $goods_name->getGoodsForAName();
         $array = array();
 
-//        dd($goods);
         foreach ($goods as $value) {
             array_push($array, [
                 'id'=>$value->id,
@@ -31,22 +29,12 @@ class VendorController extends Controller
                 'barcode'=>$value->barcode,
                 'price'=>$value->rec_price,
             ]);
-
         }
+        
         JavaScript::put([
             'goods_params' => $array,
         ]);
 
-        foreach ($goods_name as $value) {
-            array_push($array, $value->g_name);
-
-        }
-//        dd($array);
-//        $goods_name = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-//        dd($goods_name[0]->g_name);
-        JavaScript::put([
-            'goods_name' => $array,
-        ]);
         return view('layouts.vendor', [
             'goods'                 => $goods,
             'goodsCat'              => $goods_cat,

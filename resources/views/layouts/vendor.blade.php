@@ -41,7 +41,7 @@
                     <input id="tags">
                     <label>Кол-во: </label>
                     <input pattern="[ 0-9]+$" id="goods-number">
-                    <a class="btn btn-primary " id="btn-add">
+                    <a class="btn btn-primary btn-add" >
                         Добавить
                     </a>
                 </div>
@@ -72,7 +72,7 @@
                                 <td>{{ $one->rec_price }}</td>
                                 <td>{{ $one->quantity }}</td>
                                 <td>
-                                    <a class="btn btn-primary pull-right" id="btn-add">
+                                    <a class="btn btn-primary pull-right btn-add" id="{{ $one->id }}">
                                         Добавить
                                     </a>
                                 </td>

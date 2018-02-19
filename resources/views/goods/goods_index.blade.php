@@ -20,15 +20,16 @@
                 <thead>
                     <tr>
 <!--                       <th width="5%">id</th>-->
-                       <th width="15%">Имя</th>
-                       <th width="10%">Код</th>
-                       <th width="10%">Кат-ия</th>
-                       <th width="10%">Подкат-ия</th>
-                       <th width="10%">Про-ль</th>
-                       <th width="5%">Ед. изм-ия</th>
-                       <th width="10%">Цена</th>
-                       <th width="10%">Кол-во</th>
-                       <th width="10%">Действие</th>
+                       <th>Имя</th>
+                       <th>Код</th>
+                       <th>Кат-ия</th>
+                       <th>Подкат-ия</th>
+                       <th>Про-ль</th>
+                       <th>Ед. изм-ия</th>
+                       <th>Цена покупки</th>
+                       <th>Цена продажи</th>
+                       <th>Кол-во</th>
+                       <th>Действие</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,7 @@
                         <td>{{ $one->subcategories_name }}</td>
                         <td>{{ $one->manfac_name }}</td>
                         <td>{{ $one->meas_name }}</td>
+                        <td>{{ $one->price_purchase }}</td>
                         <td>{{ $one->rec_price }}</td>
                         <td>{{ $one->quantity }}</td>
                         <td>

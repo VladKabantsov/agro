@@ -96,10 +96,17 @@
             </div>
           
         <div class="form-group{{ $errors->has('rec_price') ? ' has-error' : '' }}">
-            <label>Рекомендуемая цена</label>
+            <label>Цена продажи</label>
             <input type="text" class="form-control" id="rec_price" name="rec_price" placeholder="" value="{{ $good[0]->rec_price }}">
             @if($errors->has('rec_price'))
                 <span class="help-block">{{ $errors->first('rec_price') }}</span>
+            @endif
+        </div>
+        <div class="form-group{{ $errors->has('rec_price') ? ' has-error' : '' }}">
+            <label>Цена закупки</label>
+            <input type="text" class="form-control" id="price_purchase" name="price_purchase" placeholder="" value="{{ $good[0]->price_purchase }}">
+            @if($errors->has('price_purchase'))
+                <span class="help-block">{{ $errors->first('price_purchase') }}</span>
             @endif
         </div>
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
