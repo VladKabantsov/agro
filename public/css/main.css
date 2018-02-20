@@ -46,3 +46,13 @@ body {
 .active-money, .revenue {
     font-size: 24px;
 }
+
+#ajaxResponse {
+    display: none;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #2ab27b;
+}

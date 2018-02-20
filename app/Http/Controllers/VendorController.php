@@ -43,4 +43,14 @@ class VendorController extends Controller
             'idActiveSubCategory'   => '0',
         ]);
     }
+    
+    public function acceptCheck(Request $request) 
+    {
+        $data = $request->all();
+
+          return response()->json([
+            'message'   => 'Чек подтвержден!',
+            'data'      => $data,
+        ]);
+    }
 }

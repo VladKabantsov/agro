@@ -5,16 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Calculate extends Model
+class Calculate 
 {
     //Use to calculate revenue
-    protected $table = 'goods';
-
-    public $timestamps = false;
-
-    protected $fillable = [
-        'id', 'rec_price', 'price_purchase',
-    ];
+//    protected $table = 'goods';
+//
+//    public $timestamps = false;
+//
+//    protected $fillable = [
+//        'id', 'rec_price', 'price_purchase',
+//    ];
 
     public static function getRevenueById($id)
     {

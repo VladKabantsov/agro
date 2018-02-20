@@ -24,7 +24,7 @@ Route::get('/vendor', 'VendorController@index');
 
 Route::resource('/money', 'MoneyController')->middleware('user:1'); //user 1 is admin
 
-Route::post('/vendor/calculate', 'CalculateController@index');
+Route::post('/vendor/calculate', 'VendorController@acceptCheck');
 /**
  *  Group of routes for 'Boss' role
  */

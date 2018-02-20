@@ -6,7 +6,7 @@ $(document).ready(function () {
     var num_of_orders = 0; //this variable use for setup id of order in check list
     var goodsFromDb = window.goods_params;
     amountCheckList = 0; //Finally amount in check list
-    idCheckList = [];
+    checkList = [];
 
 
     /*autocomplete input*/
@@ -30,6 +30,7 @@ $(document).ready(function () {
         var goods_number = $('#goods-number').val();
         var goodsPrice;
         var idCurrentButtonAdd = $(this).attr('id');
+        var subArray = {};
 
         if (goods_number>0 && tags!="") {
 
@@ -56,12 +57,15 @@ $(document).ready(function () {
                     "<a class='btn btn-danger'>x</a>"+
                 "</td>"+
                 "</tr>");
-            $('.btn-danger:last').attr('id', idCurrentButtonAdd);
+
             amountCheckList += goods_number*goodsPrice;
-            // $('.check-list tr:first a:first').attr('id', num_of_orders);
             $('#amount').append().text(amountCheckList+" грн");
+            subArray.id = idCurrentButtonAdd;
+            subArray.number = goods_number;
+            checkList.push(subArray);
+            $('.btn-danger:last').attr('id', checkList.length-1);
         }
-        idCheckList.push(idCurrentButtonAdd);
+
     });
 
 
@@ -109,9 +113,13 @@ $(document).ready(function () {
             },
             method: 'POST', // Type of response and matches what we said in the route
             url: '/vendor/calculate', // This is the url we gave in the route
-            data: {'id' : idCheckList}, // a JSON object to send back
+            data: {'goods' : checkList}, // a JSON object to send back
             success: function(response){ // What to do if we succeed
-                console.log(response);
+                console.log(response['message']);
+                $('#ajaxResponse').show(500);
+                setTimeout(function() {
+                    clearCheckList();
+                }, 1500);
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -120,24 +128,30 @@ $(document).ready(function () {
         });
     });
 
+    function clearCheckList()
+    {
+        $('#ajaxResponse').hide(500);
+        $('#tags').val('');
+        $('#goods-number').val('');
+        $('.list-of-goods tr').remove();
+        amountCheckList = 0;
+        checkList = [];
+        $('#amount').append().text(amountCheckList+" грн");
+    }
+
 });
 
 /*Delete goods from check-list and minus from amount*/
 $(document).on('click', '.btn-danger', function(event) {
-    console.log(idCheckList);
+
     var objectOfRow = $(this).parents('tr');
     var goodsNumber = objectOfRow.find('td:nth-child(2)').text();
     var goodsPrice = objectOfRow.find('td:nth-child(3)').text();
     var id = parseInt($(this).attr('id'), 10);
-    // console.log('id = ', id, ' array = ', idCheckList);
-    // console.log(typeof(id), Array.isArray(idCheckList));
-    // console.log($.inArray(id, idCheckList));
-    var indexOfElement = $.inArray(id, idCheckList);
-    if (indexOfElement != -1) {
-        idCheckList.splice(idCheckList.indexOf(indexOfElement), 1);
-    }
+
+    checkList.splice(id, 1);
+
     amountCheckList -= goodsNumber*goodsPrice;
-    console.log(idCheckList);
     $('#amount').append().text(amountCheckList+" грн");
     $(this).parents('tr').remove();
 });
