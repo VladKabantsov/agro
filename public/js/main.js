@@ -5,34 +5,102 @@ $(document).ready(function () {
 
     var num_of_orders = 0; //this variable use for setup id of order in check list
     var goodsFromDb = window.goods_params;
+    var availableTags = [];
     amountCheckList = 0; //Finally amount in check list
     checkList = [];
 
+    console.log(window.errorMessages);
 
     /*autocomplete input*/
     if (window.goods_params !== undefined) {
         $(function () {
-            var availableTags = [];
 
             goodsFromDb.forEach(function callback(value, index, array) {
                 availableTags[index] = value['name'];
             });
-
+            console.log(availableTags);
             $("#tags").autocomplete({source: availableTags});
         });
     }
 
+    /*light error input*/
+    function lightErrorInputs()
+    {
+        $('.ui-widget').find('.errorField').css({
+            'border':'2px solid red',
+            'border-radius':'5px',
+            'transition':'0.5s'
+    });
+        // delete light after 0.5 second
+        setTimeout(function(){
+            $('.ui-widget').find('.errorField').removeAttr('style');
+        },1500);
+    }
 
-    /*add goods to check and write to array id of element*/
+    /*show error message*/
+    function showMessage(message)
+    {
+        $('.input-error').append("<p>"+message+"</p>");
+        $('.input-error').show(500);
+        setTimeout(function() {
+            $('.input-error').hide(500);
+            $('.input-error p').remove();
+        }, 2500);
+    }
+
+    /*check fields*/
+    function checkFields()
+    {
+        var nameOfGoods = $('.ui-widget').find('#tags');
+        var numberOfGoods = $('.ui-widget').find('#goods-number');
+        var errorFlag = false;
+        var goodsQuantity;
+
+
+        /*value in input should be not empty and be in the list of goods*/
+        if ((nameOfGoods.val()!='') && ($.inArray(nameOfGoods.val(), availableTags)!==-1)) {
+            goodsFromDb.forEach(function callback(value, index, array) {
+                if (nameOfGoods.val()==value['name']) {
+                    goodsQuantity = value['quantity'];
+                }
+            });
+            /*number of goods must be bigger than quantity in the warehouse */
+            if ((goodsQuantity>0) && (goodsQuantity>=numberOfGoods.val())) {
+                nameOfGoods.removeClass('errorField');
+            } else {
+                nameOfGoods.addClass('errorField');
+                showMessage(window.errorMessages['errorQuantity']);
+                errorFlag = true;
+            }
+        } else {
+            nameOfGoods.addClass('errorField');
+            showMessage(window.errorMessages['errorName']);
+            errorFlag = true;
+        }
+
+        /*value should be number, little than quantity of goods*/
+        if ($.isNumeric(numberOfGoods.val()) && numberOfGoods.val()>0) {
+            numberOfGoods.removeClass('errorField');
+        } else {
+            numberOfGoods.addClass('errorField');
+            showMessage(window.errorMessages['errorQuantityIs0']);
+            errorFlag = true;
+        }
+
+        return errorFlag;
+    }
+
+    /*add goods to check and write to array id and numbers of element*/
     $( ".btn-add" ).on( "click", function() {
+
 
         var tags = $('#tags').val();
         var goods_number = $('#goods-number').val();
         var goodsPrice;
         var idCurrentButtonAdd = $(this).attr('id');
         var subArray = {};
-
-        if (goods_number>0 && tags!="") {
+        console.log('idCurrentButtonAdd = ',idCurrentButtonAdd);
+        if (!checkFields(idCurrentButtonAdd)) {
 
             goodsFromDb.forEach(function callback(value, index, array) {
                 if (tags==value['name']) {
@@ -64,6 +132,8 @@ $(document).ready(function () {
             subArray.number = goods_number;
             checkList.push(subArray);
             $('.btn-danger:last').attr('id', checkList.length-1);
+        } else {
+            lightErrorInputs();
         }
 
     });
@@ -115,7 +185,7 @@ $(document).ready(function () {
             url: '/vendor/calculate', // This is the url we gave in the route
             data: {'goods' : checkList}, // a JSON object to send back
             success: function(response){ // What to do if we succeed
-                console.log(response['message']);
+                console.log(response);
                 $('#ajaxResponse').show(500);
                 setTimeout(function() {
                     clearCheckList();
@@ -128,6 +198,9 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * Function clear all inputs and check-list after dispatch ajax request for confirm order
+    */
     function clearCheckList()
     {
         $('#ajaxResponse').hide(500);

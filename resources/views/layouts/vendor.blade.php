@@ -36,8 +36,11 @@
         </div>
         <div class="panel-body col-md-7">
             <div class="container-fluid">
+                <div class="input-error">
+                    
+                </div>
                 <div class="ui-widget">
-                    <label for="tags">Товар: </label>
+                    <label>Товар: </label>
                     <input id="tags">
                     <label>Кол-во: </label>
                     <input pattern="[ 0-9]+$" id="goods-number">
@@ -57,7 +60,7 @@
                                 <th width="15%">Ед. измерения</th>
                                 <th width="10%">Цена</th>
                                 <th width="10%">Кол-во</th>
-                                <th width="10%">Действие</th>
+<!--                                <th width="10%">Действие</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -71,11 +74,11 @@
                                 <td>{{ $one->meas_name }}</td>
                                 <td>{{ $one->rec_price }}</td>
                                 <td>{{ $one->quantity }}</td>
-                                <td>
-                                    <a class="btn btn-primary pull-right btn-add" id="{{ $one->id }}">
-                                        Добавить
-                                    </a>
-                                </td>
+<!--                                <td>-->
+<!--                                    <a class="btn btn-primary pull-right btn-add" id="{{ $one->id }}">-->
+<!--                                        Добавить-->
+<!--                                    </a>-->
+<!--                                </td>-->
                             </tr>
                         @endforeach
                         </tbody>

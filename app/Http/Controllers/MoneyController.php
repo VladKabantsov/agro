@@ -83,7 +83,7 @@ class MoneyController extends Controller
             Money::updateActiveMoney($sum);
         } else {
             $sum = Input::get('revenue');
-            Money::updateRevenueMoney($sum);
+            Money::updateRevenueMoney($sum, 'get');
         }  
         return redirect()
                 ->route('money.index');

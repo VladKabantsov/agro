@@ -56,3 +56,12 @@ body {
     border-radius: 5px;
     background-color: #2ab27b;
 }
+
+.input-error {
+    display: none;
+    padding: 10px;
+    color: #FFF;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #a94442;
+}

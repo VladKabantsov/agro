@@ -42,10 +42,17 @@ class Money extends Model
             ->increment('value', $sum*100);
     }
 
-    public static function updateRevenueMoney($sum)
+    public static function updateRevenueMoney($sum, $type)
     {
-        DB::table('money')
-            ->where('type','=','revenue')
-            ->decrement('value', $sum*100);
+        if ($type=='get') {
+            DB::table('money')
+                ->where('type','=','revenue')
+                ->decrement('value', $sum*100);
+        } else {
+            DB::table('money')
+                ->where('type','=','revenue')
+                ->increment('value', $sum*100);
+        }
+        
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Calculate;
 use App\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,15 +25,19 @@ class VendorController extends Controller
 
         foreach ($goods as $value) {
             array_push($array, [
-                'id'=>$value->id,
-                'name'=>$value->g_name,
-                'barcode'=>$value->barcode,
-                'price'=>$value->rec_price,
+                'id'        =>$value->id,
+                'name'      =>$value->g_name,
+                'barcode'   =>$value->barcode,
+                'price'     =>$value->rec_price,
+                'quantity'  =>$value->quantity,
             ]);
         }
-        
+
+        $errorMessages = trans('messages'); //get error messages from resources/en/messages.php
+
         JavaScript::put([
             'goods_params' => $array,
+            'errorMessages'=> $errorMessages,
         ]);
 
         return view('layouts.vendor', [
@@ -48,9 +53,18 @@ class VendorController extends Controller
     {
         $data = $request->all();
 
-          return response()->json([
+        foreach ($data['goods'] as $key=>$item) {
+            $idItem = $item['id'];
+            $numberItem = $item['number'];
+            Calculate::devideOnActiveAndRevenue($idItem, $numberItem);
+//          $idGoods[$key] = $idItem;
+//          $numOfGoods[$key] = $numberItem;
+//
+        }
+//        var_dump('id = ', $idGoods, ' numbers = ', $numOfGoods); die;
+
+        return response()->json([
             'message'   => 'Чек подтвержден!',
-            'data'      => $data,
         ]);
     }
 }
