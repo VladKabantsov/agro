@@ -11,4 +11,5 @@ return [
     'errorQuantityIs0'      => "Введенно неверное кол-во\r\n",
     'errorQuantity'         => "Введенно кол-во больше чем на складе\r\n",
     'errorValueInNumber'    => "Неверное значение в поле кол-во\r\n",
+    'errorTheSaneNameInList'=> "Такой товар уже есть в чеке\r\n",
 ];

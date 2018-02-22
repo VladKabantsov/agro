@@ -88,7 +88,7 @@
             </div>
         </div>
         <div class="col-md-3 check-list">
-                <div id="ajaxResponse" >Чек подтвержден!</div>
+                <div id="ajaxResponseVendor" >Чек подтвержден!</div>
                 <table class="table">
                     <thead>
                         <th>Наим.</th>

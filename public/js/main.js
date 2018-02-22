@@ -1,5 +1,6 @@
 /**
  * Created by vlad on 08.02.18.
+ *
  */
 $(document).ready(function () {
 
@@ -9,7 +10,6 @@ $(document).ready(function () {
     amountCheckList = 0; //Finally amount in check list
     checkList = [];
 
-    console.log(window.errorMessages);
 
     /*autocomplete input*/
     if (window.goods_params !== undefined) {
@@ -23,6 +23,16 @@ $(document).ready(function () {
         });
     }
 
+    /*value to autocomplete*/
+    $( function() {
+        var availableTags = window.goods_name;
+
+        $( "#tags" ).autocomplete({
+            source: availableTags
+        });
+    });
+    console.log(window.errorMessages);
+
     /*light error input*/
     function lightErrorInputs()
     {
@@ -30,7 +40,7 @@ $(document).ready(function () {
             'border':'2px solid red',
             'border-radius':'5px',
             'transition':'0.5s'
-    });
+        });
         // delete light after 0.5 second
         setTimeout(function(){
             $('.ui-widget').find('.errorField').removeAttr('style');
@@ -90,17 +100,26 @@ $(document).ready(function () {
         return errorFlag;
     }
 
+    function checkRepeatedGoodsInCheck(list, id)
+    {
+        var returnFlag;
+        list.forEach(function callback(value, index, array) {
+            returnFlag = (id == value['id']);
+        });
+
+        return returnFlag;
+    }
+
     /*add goods to check and write to array id and numbers of element*/
     $( ".btn-add" ).on( "click", function() {
-
 
         var tags = $('#tags').val();
         var goods_number = $('#goods-number').val();
         var goodsPrice;
         var idCurrentButtonAdd = $(this).attr('id');
         var subArray = {};
-        console.log('idCurrentButtonAdd = ',idCurrentButtonAdd);
-        if (!checkFields(idCurrentButtonAdd)) {
+
+        if (!checkFields()) {
 
             goodsFromDb.forEach(function callback(value, index, array) {
                 if (tags==value['name']) {
@@ -110,28 +129,32 @@ $(document).ready(function () {
                     }
                 }
             });
-            num_of_orders++;
-            $('.list-of-goods ').append("<tr>" +
-                "<td>"
-                    + tags +
-                "</td>" +
-                "<td>"
-                    + goods_number +
-                "</td>" +
-                "<td>" +
-                    +goodsPrice+
-                "</td>"+
-                "<td>" +
-                    "<a class='btn btn-danger'>x</a>"+
-                "</td>"+
-                "</tr>");
 
-            amountCheckList += goods_number*goodsPrice;
-            $('#amount').append().text(amountCheckList+" грн");
-            subArray.id = idCurrentButtonAdd;
-            subArray.number = goods_number;
-            checkList.push(subArray);
-            $('.btn-danger:last').attr('id', checkList.length-1);
+            if(!checkRepeatedGoodsInCheck(checkList, idCurrentButtonAdd)) {
+                num_of_orders++;
+                $('.list-of-goods ').append("<tr>" +
+                    "<td>"
+                    + tags +
+                    "</td>" +
+                    "<td>"
+                    + goods_number +
+                    "</td>" +
+                    "<td>" + +goodsPrice +
+                    "</td>" +
+                    "<td>" +
+                    "<a class='btn btn-danger'>x</a>" +
+                    "</td>" +
+                    "</tr>");
+
+                amountCheckList += goods_number * goodsPrice;
+                $('#amount').append().text(amountCheckList + " грн");
+                subArray.id = idCurrentButtonAdd;
+                subArray.number = goods_number;
+                checkList.push(subArray);
+                $('.btn-danger:last').attr('id', checkList.length - 1);
+            } else {
+                showMessage(window.errorMessages['errorTheSaneNameInList']);
+            }
         } else {
             lightErrorInputs();
         }
@@ -139,16 +162,6 @@ $(document).ready(function () {
     });
 
 
-    /*value to autocomplete*/
-    $( function() {
-        var availableTags = window.goods_name;
-
-        $( "#tags" ).autocomplete({
-            source: availableTags
-        });
-    } );
-
-    
     /*open and close ul list*/
     $('#list > li').click(function (event) {
         $(this).children("ul").slideToggle();
@@ -186,7 +199,7 @@ $(document).ready(function () {
             data: {'goods' : checkList}, // a JSON object to send back
             success: function(response){ // What to do if we succeed
                 console.log(response);
-                $('#ajaxResponse').show(500);
+                $('#ajaxResponseVendor').show(500);
                 setTimeout(function() {
                     clearCheckList();
                 }, 1500);
@@ -203,7 +216,7 @@ $(document).ready(function () {
     */
     function clearCheckList()
     {
-        $('#ajaxResponse').hide(500);
+        $('#ajaxResponseVendor').hide(500);
         $('#tags').val('');
         $('#goods-number').val('');
         $('.list-of-goods tr').remove();
@@ -211,6 +224,8 @@ $(document).ready(function () {
         checkList = [];
         $('#amount').append().text(amountCheckList+" грн");
     }
+
+
 
 });
 

@@ -22,9 +22,15 @@ Route::get('/', 'CheckUserController@index');
 
 Route::get('/vendor', 'VendorController@index');
 
+Route::post('/vendor/calculate', 'VendorController@acceptCheck');
+
 Route::resource('/money', 'MoneyController')->middleware('user:1'); //user 1 is admin
 
-Route::post('/vendor/calculate', 'VendorController@acceptCheck');
+Route::get('/agent', 'AgentController@index');
+
+Route::get('/agent/edit/{id}', 'AgentController@edit');
+
+
 /**
  *  Group of routes for 'Boss' role
  */
