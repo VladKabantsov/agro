@@ -36,9 +36,8 @@
         </div>
         <div class="panel-body col-md-7">
             <div class="container-fluid">
-                <div class="input-error">
+                <div class="input-error"></div>
 
-                </div>
                 <div class="ui-widget">
                     <label>Товар: </label>
                     <input id="tags">
@@ -75,7 +74,11 @@
                             <td>{{ $one->price_purchase }}</td>
                             <td>{{ $one->quantity }}</td>
                             <td>
-                                <a href="{{ route('/agent/edit/{id}', $one->id) }}" class="btn btn-primary pull-right btn-add" id="{{ $one->id }}">
+                                <a href="{{ route('agentEdit', [
+                                      'id'      => $one->id,
+                                      'name'    => $one->g_name,
+                                      'price'   => $one->price_purchase,
+                                ]) }}" class="btn btn-primary pull-right" id="{{ $one->id }}">
                                     Изменить
                                 </a>
                             </td>

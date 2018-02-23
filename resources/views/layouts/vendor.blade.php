@@ -36,9 +36,7 @@
         </div>
         <div class="panel-body col-md-7">
             <div class="container-fluid">
-                <div class="input-error">
-                    
-                </div>
+                <div class="input-error"></div>
                 <div class="ui-widget">
                     <label>Товар: </label>
                     <input id="tags">

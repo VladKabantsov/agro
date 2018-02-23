@@ -26,10 +26,18 @@ Route::post('/vendor/calculate', 'VendorController@acceptCheck');
 
 Route::resource('/money', 'MoneyController')->middleware('user:1'); //user 1 is admin
 
-Route::get('/agent', 'AgentController@index');
+Route::get('/agent', 'AgentController@index')->name('agent');
 
-Route::get('/agent/edit/{id}', 'AgentController@edit');
+Route::get('edit/{id}/{name}/{price}', function ($id, $name, $price) {
+    return view('agent.edit', [
+        'route'     => '/update',
+        'id'        => $id,
+        'name'      => $name,
+        'price'     => $price,
+    ]);
+})->name('agentEdit');
 
+Route::post('/update', 'AgentController@edit');
 
 /**
  *  Group of routes for 'Boss' role

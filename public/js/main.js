@@ -102,13 +102,30 @@ $(document).ready(function () {
 
     function checkRepeatedGoodsInCheck(list, id)
     {
+        var numberOfGoods = $('.ui-widget').find('#goods-number').val();
         var returnFlag;
+        var goodsQuantity;
         list.forEach(function callback(value, index, array) {
-            returnFlag = (id == value['id']);
+            if (id == value['id']) {
+                goodsFromDb.forEach(function callback(value, index, array) {
+                    if (id==value['id']) {
+                        goodsQuantity = value['quantity'];
+                    }
+                });
+
+                var Quantity = numberOfGoods + value['number'];
+                if (numberOfGoods+Quantity<goodsQuantity) {
+                    $('.list-of-goods tr').find('')
+                } else {
+
+                }
+
+            }
         });
 
         return returnFlag;
     }
+
 
     /*add goods to check and write to array id and numbers of element*/
     $( ".btn-add" ).on( "click", function() {
@@ -129,8 +146,8 @@ $(document).ready(function () {
                     }
                 }
             });
-
-            if(!checkRepeatedGoodsInCheck(checkList, idCurrentButtonAdd)) {
+            console.log('checkRepeatedGoodsInCheck = ', checkRepeatedGoodsInCheck(checkList, idCurrentButtonAdd));
+            if (!checkRepeatedGoodsInCheck(checkList, idCurrentButtonAdd)) {
                 num_of_orders++;
                 $('.list-of-goods ').append("<tr>" +
                     "<td>"
@@ -139,7 +156,8 @@ $(document).ready(function () {
                     "<td>"
                     + goods_number +
                     "</td>" +
-                    "<td>" + +goodsPrice +
+                    "<td>" +
+                    + goodsPrice +
                     "</td>" +
                     "<td>" +
                     "<a class='btn btn-danger'>x</a>" +
@@ -153,7 +171,7 @@ $(document).ready(function () {
                 checkList.push(subArray);
                 $('.btn-danger:last').attr('id', checkList.length - 1);
             } else {
-                showMessage(window.errorMessages['errorTheSaneNameInList']);
+                showMessage(window.errorMessages['errorQuantity']);
             }
         } else {
             lightErrorInputs();
@@ -225,7 +243,16 @@ $(document).ready(function () {
         $('#amount').append().text(amountCheckList+" грн");
     }
 
-
+    /**
+     * Show message for Agent
+     */
+    function showSuccesMessage()
+    {
+        $('.message').show(500);
+        setTimeout(function() {
+            $('.message').hide(500);
+        }, 2500);
+    }
 
 });
 

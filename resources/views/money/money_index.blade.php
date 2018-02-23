@@ -33,6 +33,10 @@
                 <button type="submit" class="btn btn-primary">Снять</button>
             </form>
         </div>
+        <div class="col-xs-offset-1 col-xs-4">
+            <h1>Средства в товаре</h1>
+            <p class="revenue">100000 грн</p>
+        </div>
     </div>
     <br>
     <div class="panel-footer">

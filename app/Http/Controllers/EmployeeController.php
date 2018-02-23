@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Calculate;
-use App\Vendor;
-use App\Http\Controllers;
+use App\Employee;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use JavaScript;
 
-
-class VendorController extends Controller
+class EmployeeController extends Controller
 {
-
     public function index()
     {
-        $goods = new Vendor();
-        $goods_cat = new Vendor();
-        $goods_subcat = new Vendor();
-        $goods_name = new Vendor();
+        $goods = new Employee();
+        $goods_cat = new Employee();
+        $goods_subcat = new Employee();
+        $goods_name = new Employee();
         $goods = $goods->getAllGoods();
         $goods_cat = $goods_cat->getGoodsCategory();
         $goods_subcat = $goods_subcat->getGoodsSubCategory();
@@ -42,7 +39,7 @@ class VendorController extends Controller
             'errorMessages'=> $errorMessages,
         ]);
 
-        return view('layouts.vendor', [
+        return view('layouts.agent', [
             'goods'                 => $goods,
             'goodsCat'              => $goods_cat,
             'goodsSubCat'           => $goods_subcat,
@@ -51,18 +48,7 @@ class VendorController extends Controller
         ]);
     }
 
-    public function acceptCheck(Request $request) 
-    {
-        $data = $request->all();
+    
 
-        foreach ($data['goods'] as $key=>$item) {
-            $idItem = $item['id'];
-            $numberItem = $item['number'];
-            Calculate::devideOnActiveAndRevenue($idItem, $numberItem);
-        }
-
-        return response()->json([
-            'message'   => 'Чек подтвержден!',
-        ]);
-    }
+    
 }
