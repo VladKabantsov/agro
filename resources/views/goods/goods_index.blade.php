@@ -35,7 +35,6 @@
                 <tbody>
                 @foreach ($goods as $key => $one)
                     <tr>
-<!--                        <td>{{ $one->id }} {{ $key }}</td>-->
                         <td>{{ $one->g_name }}</td>
                         <td>{{ $one->barcode }}</td>
                         <td>{{ $one->cat_name }}</td>
@@ -68,6 +67,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $goods->links() }}
         </div>
     </div>
         

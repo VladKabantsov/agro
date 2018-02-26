@@ -43,7 +43,7 @@ class Goods extends Model
             ->join('sub_categories', 'goods.subcategories_id', '=', 'sub_categories.id')
             ->select('goods.id', 'g_name', 'barcode', 'categories.cat_name', 'manufacturers.manfac_name',
                     'measures.meas_name',  'rec_price', 'price_purchase', 'sub_categories.subcategories_name', 'quantity')
-            ->get();
+            ->paginate(6);
 
         return $goods;
     }

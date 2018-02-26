@@ -80,3 +80,12 @@ body {
     background-color: #2ab27b;
 }
 
+.subcategories, .products-name{
+    display: none;
+}
+
+.subcategories {
+    background-color: #3497d280;
+}
+
+background-color:#3497d2c7;

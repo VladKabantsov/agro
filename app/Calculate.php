@@ -16,20 +16,30 @@ class Calculate
 //        'id', 'rec_price', 'price_purchase',
 //    ];
 
+    /**
+     * 
+     * @param $id
+     * @param $number
+     * @return integer
+     */
     public static function devideOnActiveAndRevenue($id, $number)
     {
         $goods = DB::table('goods')
                     ->select('rec_price', 'price_purchase')
                     ->where('id', '=', $id)
                     ->get();
-
+       
         DB::table('goods')
             ->where('id',$id)
             ->decrement('quantity', $number);
 
-        Money::updateActiveMoney($goods[0]->price_purchase*$number);
-        Money::updateRevenueMoney(($goods[0]->rec_price-$goods[0]->price_purchase)*$number, 'add');
+        $activeMoney = $goods[0]->price_purchase * $number;
+        $revenueAll = ($goods[0]->rec_price - $goods[0]->price_purchase) * $number;
+        Money::updateActiveMoney($activeMoney);
+        Money::updateRevenueMoney($revenueAll, 'add');
+
+        $revenue = $goods[0]->rec_price - $goods[0]->price_purchase;
         
-        return $goods[0]->rec_price-$goods[0]->price_purchase;
+        return $revenue;
     }
 }

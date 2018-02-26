@@ -80,6 +80,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/treeMenu', 'GoodsController@treeMenu')->name('treeMenu');
+
 //Route::post('/logout', 'LogoutController@logout');
 
 

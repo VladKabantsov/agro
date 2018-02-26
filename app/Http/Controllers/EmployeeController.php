@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Calculate;
 use App\Employee;
+use App\Goods;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use JavaScript;
@@ -13,12 +14,14 @@ class EmployeeController extends Controller
     public function index()
     {
         $goods = new Employee();
-        $goods_cat = new Employee();
-        $goods_subcat = new Employee();
+        $listOfGoods = new Goods();
+        $categories = new Goods();
+        $subCategories = new Goods();
         $goods_name = new Employee();
         $goods = $goods->getAllGoods();
-        $goods_cat = $goods_cat->getGoodsCategory();
-        $goods_subcat = $goods_subcat->getGoodsSubCategory();
+        $listOfGoods = $listOfGoods->findGoodsCollection();
+        $categories = $categories->getGoodsCategory();
+        $subCategories = $subCategories->getGoodsSubCategory();
         $goods_name = $goods_name->getGoodsForAName();
         $array = array();
 
@@ -40,9 +43,10 @@ class EmployeeController extends Controller
         ]);
 
         return view('layouts.agent', [
-            'goods'                 => $goods,
-            'goodsCat'              => $goods_cat,
-            'goodsSubCat'           => $goods_subcat,
+            'goods' => $goods,
+            'listOfGoods' => $listOfGoods,
+            'categories' => $categories,
+            'subCategories' => $subCategories,
             'goods_name'            => $goods_name,
             'idActiveSubCategory'   => '0',
         ]);

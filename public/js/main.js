@@ -4,6 +4,22 @@
  */
 $(document).ready(function () {
 
+    /*open and close ul list*/
+    $('.menu > li').click(function (event) {
+        $(this).children("ul").slideToggle();
+        event.stopPropagation();
+    });
+
+    /*open and close ul list*/
+    $('#list > li').click(function (event) {
+        // $(this).children("ul").slideToggle();
+        event.stopPropagation();
+    });
+
+
+    /*open sub categories ul*/
+    $('.active').closest("ul").css({'display':'block'});
+
     var num_of_orders = 0; //this variable use for setup id of order in check list
     var goodsFromDb = window.goods_params;
     var availableTags = [];
