@@ -11,10 +11,10 @@
         <span>Денежные средства</span>
     </div>
     <div class="row">
-        <div class="col-xs-offset-1 col-xs-4">
-            <h1>Оборотные средства</h1>
+        <div class="col-xs-offset-1 col-xs-3">
+            <h3>Оборотные средства</h3>
             <p class="active-money">{{ $active }} грн</p>
-            <form action="{{ route('money.update', 'active') }}" method="POST">
+            <form action="{{ route('money.update', 'active') }}" method="POST" >
                 <input name="_method" type="hidden" value="PUT">
                 <input name="active" type="text" value="">
                 {{ csrf_field() }}
@@ -22,8 +22,8 @@
                 <button type="submit" class="btn btn-primary">Добавить</button>
             </form>
         </div>
-        <div class="col-xs-offset-1 col-xs-4">
-            <h1>Прибыль</h1>
+        <div class="col-xs-offset-1 col-xs-3">
+            <h3>Прибыль</h3>
             <p class="revenue">{{ $revenue }} грн</p>
             <form action="{{ route('money.update', 'revenue') }}" method="POST">
                 <input name="_method" type="hidden" value="PUT">
@@ -33,9 +33,9 @@
                 <button type="submit" class="btn btn-primary">Снять</button>
             </form>
         </div>
-        <div class="col-xs-offset-1 col-xs-4">
-            <h1>Средства в товаре</h1>
-            <p class="revenue">100000 грн</p>
+        <div class="col-xs-offset-1 col-xs-3">
+            <h3>Средства в товаре</h3>
+            <p class="revenue"> {{ $moneyInGoods }} грн</p>
         </div>
     </div>
     <br>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Calculate;
+use App\Goods;
 use App\Vendor;
 use App\Http\Controllers;
 use Illuminate\Http\Request;
@@ -59,6 +60,7 @@ class VendorController extends Controller
             $idItem = $item['id'];
             $numberItem = $item['number'];
             Calculate::devideOnActiveAndRevenue($idItem, $numberItem);
+            Goods::updateQuantity($idItem, $numberItem);
         }
 
         return response()->json([

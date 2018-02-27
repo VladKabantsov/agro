@@ -7,14 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class Calculate 
 {
-    //Use to calculate revenue
-//    protected $table = 'goods';
-//
-//    public $timestamps = false;
-//
-//    protected $fillable = [
-//        'id', 'rec_price', 'price_purchase',
-//    ];
 
     /**
      * 
@@ -26,20 +18,31 @@ class Calculate
     {
         $goods = DB::table('goods')
                     ->select('rec_price', 'price_purchase')
-                    ->where('id', '=', $id)
-                    ->get();
+                    ->find($id);
        
-        DB::table('goods')
-            ->where('id',$id)
-            ->decrement('quantity', $number);
-
-        $activeMoney = $goods[0]->price_purchase * $number;
-        $revenueAll = ($goods[0]->rec_price - $goods[0]->price_purchase) * $number;
+        $activeMoney = $goods->price_purchase * $number;
+        $revenueAll = ($goods->rec_price - $goods->price_purchase) * $number;
         Money::updateActiveMoney($activeMoney);
         Money::updateRevenueMoney($revenueAll, 'add');
 
-        $revenue = $goods[0]->rec_price - $goods[0]->price_purchase;
-        
-        return $revenue;
     }
+
+    /**
+     * @return int
+     */
+    public static function moneyInGoods()
+    {
+        $goods = DB::table('goods')
+            ->select('price_purchase', 'quantity')
+            ->get();
+        
+        $money = 0;
+
+        foreach ($goods as $good) {
+            $money += $good->price_purchase * $good->quantity;
+        }
+
+        return $money;
+    }
+
 }

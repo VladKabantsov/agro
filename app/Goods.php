@@ -97,5 +97,12 @@ class Goods extends Model
 
         return $goods;
     }
+    
+    public static function updateQuantity($id, $number)
+    {
+        DB::table('goods')
+            ->where('id',$id)
+            ->decrement('quantity', $number);
+    }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Money;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Calculate;
 
 class MoneyController extends Controller
 {
@@ -20,9 +21,12 @@ class MoneyController extends Controller
 
         $active = $active->getActiveMoney();
         $revenue = $revenue->getRevenueMoney();
+        $moneyInGoods = Calculate::moneyInGoods();
+        
         return view('money.money_index', [
-            'active'    => $active,
-            'revenue'   => $revenue,
+            'active'        => $active,
+            'revenue'       => $revenue,
+            'moneyInGoods'  => $moneyInGoods,
         ]);
     }
 
