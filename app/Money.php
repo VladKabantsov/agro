@@ -20,8 +20,8 @@ class Money extends Model
         $activeMoney = DB::table('money')
                     ->select('value')
                     ->where('type','=','active')
-                    ->get();
-        $activeMoney = $activeMoney[0]->value/100; // we divide value on 100 because value saves on DB in pennis
+                    ->find(1);
+        $activeMoney = $activeMoney->value/100; // we divide value on 100 because value saves on DB in pennis
         return $activeMoney;
     }
     
@@ -30,8 +30,8 @@ class Money extends Model
         $revenueMoney = DB::table('money')
                     ->select('value')
                     ->where('type','=','revenue')
-                    ->get();
-        $revenueMoney = $revenueMoney[0]->value/100;
+                    ->first();
+        $revenueMoney = $revenueMoney->value/100;
         return $revenueMoney;
     }
 

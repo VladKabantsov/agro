@@ -105,4 +105,5 @@ class Goods extends Model
             ->decrement('quantity', $number);
     }
 
+    
 }

@@ -84,8 +84,26 @@ body {
     display: none;
 }
 
-.subcategories {
-    background-color: #3497d280;
+.subcategories > li {
+    border-color: #3497d280;
+    border-radius: 5px;
 }
 
-background-color:#3497d2c7;
+.products-name > li > a{
+    border-color: #3497d2c7;
+}
+
+.products-name > li > a:hover{
+    background-color: #3497d2c7;
+}
+
+.menu > li{
+    border-color: #7dbcda;
+    border-radius: 5px;
+}
+
+.btn-add {
+    margin-top: 25px;
+    margin-right: 15px;
+}
+

@@ -43,10 +43,10 @@ class EmployeeController extends Controller
         ]);
 
         return view('layouts.agent', [
-            'goods' => $goods,
-            'listOfGoods' => $listOfGoods,
-            'categories' => $categories,
-            'subCategories' => $subCategories,
+            'goods'                 => $goods,
+            'listOfGoods'           => $listOfGoods,
+            'categories'            => $categories,
+            'subCategories'         => $subCategories,
             'goods_name'            => $goods_name,
             'idActiveSubCategory'   => '0',
         ]);

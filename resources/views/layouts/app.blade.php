@@ -13,7 +13,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--}}
+    <link rel="stylesheet" href="{{ asset('css/jquery.auto-complete.css') }}">
 
 </head>
 <body>
@@ -81,8 +82,10 @@
         <script src="{{ asset('js/app.js') }}"></script>
     <!--    <script src="{{ asset('assets/js/main.js') }}"></script>-->
         <script src="{{ URL::asset('js/main.js') }}"></script>
+        <script src="{{ URL::asset('js/script.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        {{--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
+        {{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
+        <script src="{{ URL::asset('js/jquery.auto-complete.min.js') }}"></script>
 </body>
 </html>

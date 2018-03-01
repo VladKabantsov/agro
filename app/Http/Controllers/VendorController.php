@@ -17,14 +17,17 @@ class VendorController extends Controller
     public function index()
     {
         $goods = new Vendor();
-        $goods_cat = new Vendor();
-        $goods_subcat = new Vendor();
-        $goods_name = new Vendor();
+        $categories = new Goods();
+        $listOfGoods = new Goods();
+        $subCategories = new Goods();
+        $goodsName = new Vendor();
+        $listOfGoods = $listOfGoods->findGoodsCollection();
         $goods = $goods->getAllGoods();
-        $goods_cat = $goods_cat->getGoodsCategory();
-        $goods_subcat = $goods_subcat->getGoodsSubCategory();
-        $goods_name = $goods_name->getGoodsForAName();
+        $categories = $categories->getGoodsCategory();
+        $subCategories = $subCategories->getGoodsSubCategory();
+        $goodsName = $goodsName->getGoodsForAName();
         $array = array();
+        $arrayName = array();
 
         foreach ($goods as $value) {
             array_push($array, [
@@ -36,18 +39,25 @@ class VendorController extends Controller
             ]);
         }
 
+        foreach ($goodsName as $value) {
+            $arrayName [] = $value->g_name;
+        }
+
         $errorMessages = trans('messages'); //get error messages from resources/en/messages.php
 
         JavaScript::put([
-            'goods_params' => $array,
-            'errorMessages'=> $errorMessages,
+            'goodsName'     => $arrayName,
+            'goods_params'  => $array,
+            'errorMessages' => $errorMessages,
         ]);
 
         return view('layouts.vendor', [
+
             'goods'                 => $goods,
-            'goodsCat'              => $goods_cat,
-            'goodsSubCat'           => $goods_subcat,
-            'goods_name'            => $goods_name,
+            'categories'            => $categories,
+            'subCategories'         => $subCategories,
+            'goods_name'            => $goodsName,
+            'listOfGoods'           => $listOfGoods,
             'idActiveSubCategory'   => '0',
         ]);
     }

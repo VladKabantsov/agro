@@ -53,4 +53,6 @@ class Employee extends Model
 
         return $goods;
     }
+    
+    
 }

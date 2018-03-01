@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $title = 'Добавить пользователя';
         $route = route('user.store');
-        $user[0] = new User();
+        $user = new User();
 //        dd($user[0]);
         return view('auth.register', [
             'route' => $route,

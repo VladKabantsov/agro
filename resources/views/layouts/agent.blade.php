@@ -4,49 +4,23 @@
 <div class="container">
     <div class="row">
         <h1>Agent</h1>
-        {{--<div class="col-md-2">--}}
-            {{--<div class="content">--}}
-                {{--<ul id="list" class="nav">--}}
-                    {{--@foreach ($goodsCat as $cat)--}}
-                    {{--<li class="nav-item li-item">--}}
-                        {{--<a href="#" class="cat">--}}
-                            {{--{{ $cat->cat_name }}--}}
-                            {{--<ul class="nav">--}}
-                                {{--@foreach ($goodsSubCat as $row)--}}
-                                {{--<li class="nav-item">--}}
-                                    {{--@if ($cat->id==$row->category_id)--}}
-                                    {{--@if ($row->id==$idActiveSubCategory)--}}
-                                    {{--<a class="subcat active" href="">--}}
-                                        {{--{{ $row->subcategories_name }}--}}
-                                    {{--</a>--}}
-                                    {{--@else--}}
-                                    {{--<a class="subcat" href="">--}}
-                                        {{--{{ $row->subcategories_name }}--}}
-                                    {{--</a>--}}
-                                    {{--@endif--}}
-                                    {{--@endif--}}
-                                {{--</li>--}}
-                                {{--@endforeach--}}
-                            {{--</ul>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--@endforeach--}}
-                {{--</ul>--}}
-            {{--</div>--}}
-        {{--</div>--}}
         @include('treeMenu')
         <div class="panel-body col-md-7">
             <div class="container-fluid">
                 <div class="input-error"></div>
 
-                <div class="ui-widget">
-                    <label>Товар: </label>
-                    <input id="tags">
-                    <label>Кол-во: </label>
-                    <input pattern="[ 0-9]+$" id="goods-number">
-                    <a class="btn btn-primary btn-add" >
-                        Добавить
-                    </a>
+                <div class="ui-widget row">
+                    <div class="col-xs-6">
+                        <label for="tags">Товар: </label>
+                        <input class="form-control" id="tags" name="tags">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="goods-number">Кол-во: </label>
+                        <input class="form-control" pattern="[ 0-9]+$" id="goods-number" name="goods-number">
+                    </div>
+                </div>
+                <div class="row">
+                    <a class="btn btn-primary btn-add pull-right" >Добавить</a>
                 </div>
                 <div class="panel-body col-md-8">
                     <table class="table table-bordered table-striped" id="users-table">
