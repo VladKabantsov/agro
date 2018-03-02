@@ -12,37 +12,23 @@ $(document).ready(function () {
 
     /*autocomplete input*/
     if (window.goods_params !== undefined) {
-        // $(function () {
-        //
-        //     goodsFromDb.forEach(function callback(value, index, array) {
-        //         availableTags[index] = value['name'];
-        //     });
-            console.log(availableTags);
-            // console.log(availableTags);
-            // $("#tags").autocomplete({source: availableTags});
-        // });
-    }
-    //
-    /*value to autocomplete*/
-    // $( function() {
-    //     var availableTags = window.goods_name;
-    //
-    //     $( "#tags" ).autocomplete({
-    //         source: availableTags
-    //     });
-    // });
 
-    $('#tags').autoComplete({
-        minChars: 1,
-        source: function(term, suggest){
-            term = term.toLowerCase();
-            var choices = ['ActionScript', 'AppleScript', 'Asp'];
-            var matches = [];
-            for (i=0; i<availableTags.length; i++)
-                if (~availableTags[i].toLowerCase().indexOf(term)) matches.push(availableTags[i]);
-            suggest(matches);
-        }
-    });
+        console.log(availableTags);
+        $('#tags').autoComplete({
+            minChars: 1,
+            source: function(term, suggest){
+                console.log('availableTags = ', availableTags);
+                term = term.toLowerCase();
+                var choices = ['ActionScript', 'AppleScript', 'Asp'];
+                var matches = [];
+                for (let i=0; i<availableTags.length; i++)
+                    if (~availableTags[i].toLowerCase().indexOf(term))
+                        matches.push(availableTags[i]);
+               console.log(matches);
+                suggest(matches);
+            }
+        });
+    }
 
     /*add goods to check and write to array id and numbers of element*/
     $( ".btn-add" ).on( "click", function() {

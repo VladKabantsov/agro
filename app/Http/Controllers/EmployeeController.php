@@ -17,13 +17,14 @@ class EmployeeController extends Controller
         $listOfGoods = new Goods();
         $categories = new Goods();
         $subCategories = new Goods();
-        $goods_name = new Employee();
+        $goodsName = new Employee();
         $goods = $goods->getAllGoods();
         $listOfGoods = $listOfGoods->findGoodsCollection();
         $categories = $categories->getGoodsCategory();
         $subCategories = $subCategories->getGoodsSubCategory();
-        $goods_name = $goods_name->getGoodsForAName();
+        $goodsName = $goodsName->getGoodsForAName();
         $array = array();
+        $arrayName = array();
 
         foreach ($goods as $value) {
             array_push($array, [
@@ -37,7 +38,12 @@ class EmployeeController extends Controller
 
         $errorMessages = trans('messages'); //get error messages from resources/en/messages.php
 
+        foreach ($goodsName as $value) {
+            $arrayName[] = $value->g_name;
+        }
+
         JavaScript::put([
+            'goodsName'    => $arrayName,
             'goods_params' => $array,
             'errorMessages'=> $errorMessages,
         ]);
@@ -47,7 +53,7 @@ class EmployeeController extends Controller
             'listOfGoods'           => $listOfGoods,
             'categories'            => $categories,
             'subCategories'         => $subCategories,
-            'goods_name'            => $goods_name,
+            'goods_name'            => $goodsName,
             'idActiveSubCategory'   => '0',
         ]);
     }

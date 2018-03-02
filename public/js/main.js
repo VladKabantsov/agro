@@ -4,7 +4,7 @@
  */
 $(document).ready(function () {
 
-    $('#tags').autoComplete({key1: "as", key2: "sf"});
+    // $('#tags').autoComplete({key1: "as", key2: "sf"});
     /*open and close ul list*/
     $('.menu > li').click(function (event) {
         $(this).children("ul").slideToggle();
